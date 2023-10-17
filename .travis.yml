@@ -1,13 +1,13 @@
 language: python
 python:
-  - "3.9"
+  - 3.7
+  - 3.8
+  - 3.10
 
 
 # Specify additional services or addons if needed, such as databases, caches, etc.
 services:
   - mysql
-  - redis
-  - Nginx
   - docker
 
 # Environment variables for MySQL setup

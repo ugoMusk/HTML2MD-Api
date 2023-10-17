@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.11.4"
+  - 2.7
 
 
 # Specify additional services or addons if needed, such as databases, caches, etc.

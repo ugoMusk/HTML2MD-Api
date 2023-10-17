@@ -1,3 +1,4 @@
+
 Python 3.11.4
 Flask==2.1.0
 SQLAlchemy==1.4.25
@@ -9,3 +10,18 @@ Flask-RESTful==0.3.10
 Flask-JWT-Extended==4.1.1
 gunicorn==20.1.0
 pytest==6.2.5
+
+Flask==2.1.0  # The Flask web framework
+SQLAlchemy==1.4.25  # For working with databases
+WTForms==2.3.3  # To create and validate web forms
+Flask-WTF==1.0.3  # Integration of WTForms with Flask
+Flask-SQLAlchemy==3.0.0  # Flask extension for SQLAlchemy
+Flask-Login==0.5.3  # For user session management
+Flask-Migrate==3.1.0  # Database migrations with Flask
+Flask-Mail==0.9.1  # Sending emails from Flask
+Flask-RESTful==0.3.10  # Building REST APIs with Flask
+Flask-JWT-Extended==4.1.1  # JSON Web Tokens (JWT) for Flask
+gunicorn==20.1.0  # A WSGI HTTP server for deploying Flask apps
+pytest==6.2.5  # Testing framework for Flask applications
+
+

@@ -1,4 +1,4 @@
-sk==2.1.0  # The Flask web framework
+Flask==2.1.0  # The Flask web framework
 SQLAlchemy==1.4.25  # For working with databases
 WTForms==2.3.3  # To create and validate web forms
 Flask-WTF==1.0.3  # Integration of WTForms with Flask

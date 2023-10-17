@@ -1,21 +1,18 @@
 language: python
 python:
-  - 3.7
-  - 3.8
   - 3.10
 
 
 # Specify additional services or addons if needed, such as databases, caches, etc.
 services:
   - mysql
-  - docker
 
 # Environment variables for MySQL setup
 env:
   global:
-    - MYSQL_DATABASE=html2md
+    - MYSQL_DATABASE=html2md_dev
     - MYSQL_USER=travis
-    - MYSQL_PASSWORD=
+    - MYSQL_PASSWORD=html2md_pwd
 
 # Install dependencies
 install:
@@ -23,7 +20,7 @@ install:
 
 # Set up MySQL database
 before_script:
-  - mysql -e 'CREATE DATABASE html2md;'  # Create the database
+  - mysql -e 'CREATE DATABASE html2md;'  # Create the database
 
 # Run tests
 script:

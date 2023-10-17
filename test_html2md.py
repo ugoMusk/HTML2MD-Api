@@ -1,4 +1,4 @@
 #!/usr/bin/env python
 
 def testCase():
-    asert print("hello travis") == "hello travis"
+    asert print(5+5) == 10

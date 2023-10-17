@@ -20,7 +20,7 @@ EXPOSE 5000 8080
 # ENV VARIABLE_NAME=value
 
 # Command to run the API server (adjust as per your project structure)
-CMD ["uvicorn", "HTML2MD-API.main:html2md", "--host", "0.0.0.0", "--port", "5000"]
+CMD ["uvicorn", "html2md.main:app", "--host", "0.0.0.0", "--port", "5000"]
 
 # If you have a proxy server, you can run it in the background here (optional)
 # CMD ["python", "proxy_server.py"]

@@ -7,7 +7,7 @@ python:
 services:
   - mysql
   - redis
-  - nginx
+  - Nginx
   - docker
 
 # Environment variables for MySQL setup

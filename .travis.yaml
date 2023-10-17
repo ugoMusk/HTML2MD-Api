@@ -6,6 +6,9 @@ python:
 # Specify additional services or addons if needed, such as databases, caches, etc.
 services:
   - mysql
+  - redis
+  - nginx
+  - docker
 
 # Environment variables for MySQL setup
 env:

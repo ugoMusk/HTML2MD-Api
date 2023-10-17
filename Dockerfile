@@ -17,7 +17,6 @@ COPY . /html2md/
 EXPOSE 5000 8080
 
 # Set environment variables if necessary (optional)
-# ENV VARIABLE_NAME=value
 
 # Command to run the API server (adjust as per your project structure)
 CMD ["uvicorn", "html2md.main:app", "--host", "0.0.0.0", "--port", "5000"]

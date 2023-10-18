@@ -1,6 +1,1 @@
-Flask
-SQLAlchemy
-Flask-Login
-Flask-RESTful
-gunicorn
 pytest

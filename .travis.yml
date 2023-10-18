@@ -1,43 +1,33 @@
+dist: jammy
 language: python
-python:
-  - 3.8
-
-
-# Specify additional services or addons if needed, such as databases, caches, etc.
+matrix:
+  include:
+    - python: 3.7
+      env: MYSQL_DATABASE=html2md_dev MYSQL_USER=travis MYSQL_PASSWORD=html2md_pwd
+    - python: 3.8
+      env: MYSQL_DATABASE=html2md_dev MYSQL_USER=travis MYSQL_PASSWORD=html2md_pwd
+    - python: 3.11
+      env: MYSQL_DATABASE=html2md_dev MYSQL_USER=travis MYSQL_PASSWORD=html2md_pwd
+cache: pip
 services:
   - mysql
-
-# Environment variables for MySQL setup
-env:
-  global:
-    - MYSQL_DATABASE=html2md_dev
-    - MYSQL_USER=travis
-    - MYSQL_PASSWORD=html2md_pwd
-
-# Install dependencies
+  - docker
+before_install:
+  - sudo apt-get update
+  - sudo apt remove python-pip
+  - sudo apt install python-setuptools
+  - sudo easy_install -U pip
+  - sudo apt-get install -y libmysqlclient-dev
 install:
-  - pip install -r requirements.txt
-
-# Set up MySQL database
+  - pip install -r requirements.txt --use-feature=2020-resolver
 before_script:
-  - pip install --upgrade pip
   - docker build -t html2md-api .
-  - 127.0.0.1:3000:3000 html2md-api
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS html2md;'  # Create the database
-
-# Run tests
+  - docker run -d -p 127.0.0.1:8080:8080 html2md-api
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS html2md;'
 script:
   - pytest
-
-# Deployment configuration (deploy to Digital Ocean VPS after tests pass)
 deploy:
   provider: script
   script: bash deploy.sh
   on:
-    branch: main  # Specify the branch you want to deploy from
-
-# You can specify other settings here, such as notifications, environment variables, etc.
-# notifications:
-#   email:
-#     on_success: always
-#     on_failure: always
+    branch: main

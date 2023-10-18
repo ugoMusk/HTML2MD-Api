@@ -19,7 +19,7 @@ before_install:
   - sudo pip install --upgrade pip
   - sudo apt-get install -y libmysqlclient-dev
 install:
-  - pip install -r requirements.txt --use-feature=2020-resolver 
+  - pip install -r requirements.txt --use-feature=fast-debs
 before_script:
   - docker build -t html2md-api .
   - docker run -d -p 127.0.0.1:8080:8080 html2md-api

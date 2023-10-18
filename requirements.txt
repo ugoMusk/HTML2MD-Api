@@ -3,7 +3,6 @@ SQLAlchemy
 Flask-WTF
 Flask-Login
 Flask-Migrate
-Flask-Mail
 Flask-RESTful
 Flask-JWT-Extended
 gunicorn

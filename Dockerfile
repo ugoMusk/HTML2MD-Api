@@ -1,10 +1,10 @@
 # Use an official Python runtime as a parent image
-FROM python:3.9-slim
+FROM python:3
 
 # Set the working directory inside the container
 WORKDIR /html2md
 
-# Copy the requirements file into the container at /app
+# Copy the requirements file into the container at /html2md
 COPY requirements.txt /html2md/
 
 # Install the dependencies

@@ -1,9 +1,10 @@
+dist: trusty
 language: python
 matrix:
   include:
     - python: 3.7
       env: MYSQL_DATABASE=html2md_dev MYSQL_USER=travis MYSQL_PASSWORD=html2md_pwd
-    - python: 2.7
+    - python: 3.8
       env: MYSQL_DATABASE=html2md_dev MYSQL_USER=travis MYSQL_PASSWORD=html2md_pwd
     - python: 3.11
       env: MYSQL_DATABASE=html2md_dev MYSQL_USER=travis MYSQL_PASSWORD=html2md_pwd
@@ -18,15 +19,15 @@ before_install:
   - sudo easy_install -U pip
   - sudo apt-get install -y libmysqlclient-dev
 install:
-  - pip install -r requirements.txt
+  - pip install -r requirements.txt --use-feature=2020-resolver
 before_script:
   - docker build -t html2md-api .
-  - docker run -d -p 127.0.0.1:8080:5000 html2md-api
-  - mysql -e 'CREATE DATABASE IF NOT EXISTS html2md;'  # Create the database
+  - docker run -d -p 127.0.0.1:8080:8080 html2md-api
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS html2md;'
 script:
   - pytest
 deploy:
   provider: script
   script: bash deploy.sh
   on:
-    branch: main  # Specify the branch you want to deploy from
+    branch: main

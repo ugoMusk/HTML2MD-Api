@@ -20,7 +20,9 @@ install:
 
 # Set up MySQL database
 before_script:
-  - mysql -e 'CREATE DATABASE html2md;'  # Create the database
+  - docker build -t html2md-api .
+  - 127.0.0.1:3000:3000 html2md-api
+  - mysql -e 'CREATE DATABASE IF NOT EXISTS html2md;'  # Create the database
 
 # Run tests
 script:

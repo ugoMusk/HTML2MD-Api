@@ -1,6 +1,6 @@
 language: python
 python:
-  - 3.7
+  - 3.8
 
 
 # Specify additional services or addons if needed, such as databases, caches, etc.
@@ -20,6 +20,7 @@ install:
 
 # Set up MySQL database
 before_script:
+  - pip install --upgrade pip
   - docker build -t html2md-api .
   - 127.0.0.1:3000:3000 html2md-api
   - mysql -e 'CREATE DATABASE IF NOT EXISTS html2md;'  # Create the database

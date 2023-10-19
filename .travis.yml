@@ -18,7 +18,7 @@ before_script:
   - sleep 10
   - docker ps
   - docker restart --time 120 mysql-html2md
-  - docker exec -it mysql-html2md /usr/bin/bash mysql -uroot -proot < init.sql
+  - docker exec mysql-html2md cat init.sql | mysql -uroot -proot
 script:
   - pytest
 deploy:

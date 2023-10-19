@@ -1,0 +1,11 @@
+# Use mysql docker image
+FROM mysql:8.0
+
+# update distro and install pip
+RUN apt update && apt install python3-pip -y
+
+# Copy the sql initialization script to the docker-entrypoint-initdb.d directory
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Expose the ports used by your application
+EXPOSE 3306 5000 8080

@@ -15,7 +15,7 @@ before_script:
   - docker build -t mysql-html2md -f html2md/models/Dockerfile .
   - docker run -d -p 3306:3306 --name mysql-html2md mysql-html2md
   - docker run -d -p 127.0.0.1:8080:8080 --name html2md-api --link mysql-html2md:html2md_host html2md-api
-  - sleep 60
+  - sleep 10
   - docker ps
   - docker restart --time 120 mysql-html2md
   - docker exec mysql-html2md bash -c " sudo mysql"

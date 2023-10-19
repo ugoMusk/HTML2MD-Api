@@ -11,14 +11,14 @@ before_install:
 install:
   - pip install -r html2md/requirements.txt
 before_script:
-  - docker build -t html2md-api -f ./html2md/Dockerfile .
-  - docker build -t mysql-html2md -f ./html2md/models/Dockerfile .
-  - docker run -p 3306:3306 --name mysql-html2md -d mysql-html2md
+  - docker build -t html2md-api -f /html2md/Dockerfile .
+  - docker build -t mysql-html2md -f /html2md/models/Dockerfile .
+  - docker run -d -p 3306:3306 --name mysql-html2md mysql-html2md
   - docker run -d -p 127.0.0.1:8080:8080 --name html2md-api --link mysql-html2md:html2md_host html2md-api
   - sleep 10
   - docker ps
-  # - docker start 4198d8be4e7367840cd86151faf117af9ccf17e80ab5683745dd2bdcdc8dd017
-  # - docker exec -it mysql-html2md /usr/bin/bash mysql -uroot -proot < init.sql
+  - docker restart --time 120 mysql-html2md
+  - docker exec -it mysql-html2md /usr/bin/bash mysql -uroot -proot < init.sql
 script:
   - pytest
 deploy:

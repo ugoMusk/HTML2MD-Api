@@ -2,8 +2,6 @@ dist: focal
 language: python
 matrix:
   include:
-    - python: 3.7
-    - python: 3.8
     - python: 3.11
 cache: pip
 services:
@@ -11,18 +9,18 @@ services:
 before_install:
   # nothing needed here yet, containers come pre-installed
 install:
-  - pip install -r requirements.txt
+  - pip install -r html2md/requirements.txt
 before_script:
-  - docker build -t html2md-api -f Dockerfile .
-  - docker build -t mysql-html2md -f models/Dockerfile .
+  - docker build -t html2md-api -f html2md/Dockerfile .
+  - docker build -t mysql-html2md -f html2md/models/Dockerfile .
   - docker run -d -p 3306:3306 --name mysql-test mysql-html2md
   - docker run -d -p 127.0.0.1:8080:8080 --name html2md-api --network mysql-html2md:html2md_host html2md-api
   - sleep 10
-  - docker exec -i mysql-html2md mysql -uroot -proot < init.sql
+  - docker exec -i mysql-html2md mysql -uroot -proot < html2md/init.sql
 script:
   - pytest
 deploy:
   provider: script
-  script: bash deploy.sh
+  script: bash html2md/deploy.sh
   on:
     branch: main

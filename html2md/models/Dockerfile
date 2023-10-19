@@ -5,4 +5,4 @@ FROM mysql:8.0
 COPY init.sql /docker-entrypoint-initdb.d/
 
 # Expose the ports used by your application
-EXPOSE 3306 5000 8080
+EXPOSE 3306 8080

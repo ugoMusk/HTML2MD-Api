@@ -5,7 +5,7 @@ FROM mysql:8.0
 COPY init.sql /docker-entrypoint-initdb.d/
 COPY init.sql /home/
 RUN chown mysql:mysql /home/init.sql
-RUN service mysql restart
+RUN systemctl restart mysql
 
 # Expose the ports used by your application
 EXPOSE 3306 8080

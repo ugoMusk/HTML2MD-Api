@@ -5,8 +5,8 @@ FROM mysql:8.0
 # Set the working directory inside the container
 WORKDIR /html2md
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# update distro and install pip
+RUN apt update && apt install python3-pip -y
 
 # Copy the rest of the application code into the container at /html2md
 COPY . /html2md/

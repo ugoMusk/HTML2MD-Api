@@ -18,7 +18,7 @@ before_script:
   - sleep 10
   - docker ps
   - docker restart --time 120 mysql-html2md
-  - docker exec html2md bash -c "echo 'test img'"
+  - docker exec html2md-api bash -c "echo 'test img'"
 script:
   - pytest
 deploy:

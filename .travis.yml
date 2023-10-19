@@ -18,7 +18,7 @@ before_script:
   - sleep 60
   - docker ps
   - docker restart --time 120 mysql-html2md
-  - docker exec mysql-html2md bash -c "service mysql status"
+  - docker exec mysql-html2md bash -c " sudo mysql"
   # - docker exec mysql-html2md echo /home/init.sql | mysql -uroot -proot
 script:
   - pytest

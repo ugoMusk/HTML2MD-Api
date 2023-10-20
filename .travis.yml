@@ -19,10 +19,10 @@ script:
   - docker ps
   - docker logs html2mddb
   - pytest
+  - python3 html2md/api/html2md.py
 deploy:
   provider: script
   script: python3 html2md/testsql.py
-  script: python3 html2md/api/html2md.py
   on:
     branch: main
 # Subsequent changes must be made through a pull request

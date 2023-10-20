@@ -18,6 +18,7 @@ before_script:
   - sleep 10
 script:
   - docker ps
+  - docker log
   - pytest
 deploy:
   provider: script

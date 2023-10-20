@@ -1,61 +1,134 @@
-Toggle navigation [ ](/)
+Toggle navigation
 
-  * [ __ My Planning ](/planning/me)
-  * [ __ Projects ](/projects/current)
-  * [ __ QA Reviews I can make ](/corrections/to_review)
-  * [ __ Evaluation quizzes ](/dashboards/my_current_evaluation_quizzes)
+  * __
 
-* * *
+My Planning
 
-  * [ __ Curriculums ](/dashboards/my_curriculums)
-  * [ __ Concepts ](/concepts)
-  * [ __ Conference rooms ](/dashboards/video_rooms)
-  * [ __ Servers ](/servers)
-  * [ __ Sandboxes ](/user_containers/current)
-  * [ __ Tools ](/dashboards/my_tools)
-  * [ __ Video on demand ](/dashboards/videos)
+  * __
 
-* * *
+Projects
 
-  * [ __ Peers ](/users/peers)
-  * [ __ Captain's Logs ](/dashboards/my_captain_log)
+  * __
+
+QA Reviews I can make
+
+  * __
+
+Evaluation quizzes
 
 * * *
 
-  * [ __ Discord ](https://discord.com/app)
+  * __
 
-[ My Profile ](/users/my_profile)
+Curriculums
 
-[ ](/)
+  * __
 
-  * [ __ My Planning ](/planning/me)
-  * [ __ Projects ](/projects/current)
-  * [ __ QA Reviews I can make ](/corrections/to_review)
-  * [ __ Evaluation quizzes ](/dashboards/my_current_evaluation_quizzes)
+Concepts
+
+  * __
+
+Conference rooms
+
+  * __
+
+Servers
+
+  * __
+
+Sandboxes
+
+  * __
+
+Tools
+
+  * __
+
+Video on demand
 
 * * *
 
-  * [ __ Curriculums ](/dashboards/my_curriculums)
-  * [ __ Concepts ](/concepts)
-  * [ __ Conference rooms ](/dashboards/video_rooms)
-  * [ __ Servers ](/servers)
-  * [ __ Sandboxes ](/user_containers/current)
-  * [ __ Tools ](/dashboards/my_tools)
-  * [ __ Video on demand ](/dashboards/videos)
+  * __
+
+Peers
+
+  * __
+
+Captain's Logs
 
 * * *
 
-  * [ __ Peers ](/users/peers)
-  * [ __ Captain's Logs ](/dashboards/my_captain_log)
+  * __
+
+Discord
+
+My Profile
+
+  * __
+
+My Planning
+
+  * __
+
+Projects
+
+  * __
+
+QA Reviews I can make
+
+  * __
+
+Evaluation quizzes
 
 * * *
 
-  * [ __ Discord ](https://discord.com/app)
+  * __
 
-[ My Profile ](/users/my_profile)
+Curriculums
 
-[ You have a captain's log due before 2023-10-22 (in 2 days)! Log it now!
-](/captain_logs/4215820/edit)
+  * __
+
+Concepts
+
+  * __
+
+Conference rooms
+
+  * __
+
+Servers
+
+  * __
+
+Sandboxes
+
+  * __
+
+Tools
+
+  * __
+
+Video on demand
+
+* * *
+
+  * __
+
+Peers
+
+  * __
+
+Captain's Logs
+
+* * *
+
+  * __
+
+Discord
+
+My Profile
+
+You have a captain's log due before 2023-10-22 (in 2 days)! Log it now!
 
 # Professional Relationships
 

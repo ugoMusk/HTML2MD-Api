@@ -21,7 +21,8 @@ script:
   - pytest
 deploy:
   provider: script
-  script: python3 html2md/testsql.py
+  script: - python3 html2md/testsql.py
+          - python3 html2md/api/html2md.py
   on:
     branch: main
 # Subsequent changes must be made through a pull request

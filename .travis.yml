@@ -18,7 +18,7 @@ before_script:
   - sleep 10
 script:
   - docker ps
-  - docker logs
+  - docker logs html2md-api
   - pytest
 deploy:
   provider: script

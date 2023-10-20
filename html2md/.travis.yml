@@ -9,7 +9,8 @@ cache: pip
 services:
   - docker
 before_install:
-  # nothing needed here yet, containers come pre-installed
+  - pip install sqlalchemy
+  - pip install psycopg2
 install:
   - pip install -r requirements.txt
 before_script:

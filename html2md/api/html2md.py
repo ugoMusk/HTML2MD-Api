@@ -3,7 +3,7 @@
 from flask import Flask, request, jsonify
 import markdown
 
-app = Flask(__name)
+app = Flask(__name__)
 
 
 def convert_html_to_markdown(html):

@@ -8,9 +8,6 @@ matrix:
 cache: pip
 services:
   - docker
-before_install:
-  - pip install SQLAlchemy
-  - pip install psycopg2
 install:
   - pip install -r requirements.txt
 before_script:

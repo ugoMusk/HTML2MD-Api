@@ -1,3 +1,4 @@
 pytest
 uvicorn
+SQLAlchemy
 psycopg2

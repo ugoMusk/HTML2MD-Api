@@ -17,6 +17,7 @@ before_script:
   # - docker build -t mysql-html2md -f html2md/models/Dockerfile .
   - docker run  --name html2mddb -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD -d mysql
   - docker run -d -p 127.0.0.1:8080:8080 --name html2mdapi  python
+  - docker cp init.sql html2mddb:/docker-entrypoint-initdb.d/init.sql
   - sleep 10
 script:
   - docker ps

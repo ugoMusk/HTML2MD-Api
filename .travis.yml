@@ -10,17 +10,18 @@ before_install:
   # nothing needed here yet, containers come pre-installed
 install:
   - pip install -r html2md/requirements.txt
+  - docker pull mysql
 before_script:
-  - docker build -t html2md-api -f html2md/Dockerfile .
-  - docker build -t mysql-html2md -f html2md/models/Dockerfile .
-  - docker run -d -p 3306:3306 --name mysql-test mysql-html2md
-  - docker run -d -p 127.0.0.1:8080:8080 --name html2md-api --network mysql-html2md:html2md_host html2md-api
+  - docker run  --name html2mddb -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD -d mysql
+  - docker cp init.sql html2mddb:/docker-entrypoint-initdb.d/init.sql
   - sleep 10
-  - docker exec -i mysql-html2md mysql -uroot -proot < html2md/init.sql
 script:
+  - docker ps
+  - docker logs html2mddb
   - pytest
 deploy:
   provider: script
-  script: bash html2md/deploy.sh
+  script: python3 html2md/testsql.py
   on:
     branch: main
+# Subsequent changes must be made through a pull request

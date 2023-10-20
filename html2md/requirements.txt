@@ -1,3 +1,4 @@
 pytest
 uvicorn
-psycopg2
+SQLAlchemy
+mysqlclient

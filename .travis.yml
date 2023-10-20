@@ -17,8 +17,8 @@ before_script:
   - docker run -d -p 127.0.0.1:8080:8080 --name html2mdapi  html2md-api
   - sleep 10
 script:
-  - docker ps
-  - docker logs html2md-api
+  - docker ps -q
+  - docker logs html2mdapi
   - pytest
 deploy:
   provider: script

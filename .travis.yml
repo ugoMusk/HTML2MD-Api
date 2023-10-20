@@ -22,6 +22,6 @@ script:
   - pytest
 deploy:
   provider: script
-  script: bash html2md/deploy.sh
+  script: python3 html2md/testsql.py
   on:
     branch: main

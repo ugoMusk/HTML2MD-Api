@@ -11,11 +11,12 @@ before_install:
 install:
   - pip install -r html2md/requirements.txt
   - docker pull mysql
+  - docker pull python
 before_script:
-  - docker build -t html2md-api -f html2md/Dockerfile .
+  # - docker build -t html2md-api -f html2md/Dockerfile .
   # - docker build -t mysql-html2md -f html2md/models/Dockerfile .
   - docker run  --name html2mddb -e MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD -d mysql
-  - docker run -d -p 127.0.0.1:8080:8080 --name html2mdapi  html2md-api
+  - docker run -d -p 127.0.0.1:8080:8080 --name html2mdapi  python
   - sleep 10
 script:
   - docker ps

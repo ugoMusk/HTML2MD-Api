@@ -24,3 +24,4 @@ deploy:
   script: python3 html2md/testsql.py
   on:
     branch: main
+# Subsequent changes must be made through a pull request

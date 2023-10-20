@@ -23,6 +23,6 @@ script:
   - pytest
 deploy:
   provider: script
-  script: bash deploy.sh
+  script: python3 testsql.py
   on:
     branch: main

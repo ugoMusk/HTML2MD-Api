@@ -14,5 +14,5 @@ engine = sqlalchemy.create_engine("mysql+mysqldb://{}:{}@{}/html2md".format(mysq
 
 # Run some queries on the database using a connection object
 with engine.connect() as conn:
-    result = conn.execute("SHOW TABLES;")
+    result = conn.execute("SHOW DATABASES;")
     print(result.fetchall())

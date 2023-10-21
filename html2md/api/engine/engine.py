@@ -2,27 +2,20 @@
 """ converter engine """
 
 import markdown
-import mistune
 import html2text
 
-def convertHtml2(html):
-    """
-    converts thtml to markdown
-    """
-    text = html2text.html2text(html)
-    return text
+def convertHtml2Markdown(html):
+    """ converts html to markdown format """
+    text = html2text.HTML2Text()
+    text.ignore_links = True
+    markdown = text.handle(html)
+    return markdown
 
-def convertMarkdown(markdwon):
-    """method to convert html to markdown """
+def convertMarkdown2Html(markdown):
+    """ convert markdown to html """
     md = markdown.Markdown(extensions=["markdown.extensions.extra", "markdown.extensions.codehilite"])
-    htmlResult = md.convert(html)
+    htmlResult = md.convert(markdown)
     return htmlResult
-
-def convertHtml(html):
-    """ Method to convert html to markdown"""
-    markdownResult = mistune.create_markdown(html)
-    print(f"The converted string: {markdownResult}")
-    return markdownResult
 
 
 if __name__ == '__main__':
@@ -30,7 +23,7 @@ if __name__ == '__main__':
     mdFilePath = "test.md"
     with open(htmlFilePath, mode="r", encoding="utf-8") as htmlFile:
         htmlFile = htmlFile.read()
-    mdFile = convertHtml2(htmlFile)
+    mdFile = convertHtml2Markdown(htmlFile)
     with open(mdFilePath, mode="w", encoding="utf-8") as md:
         try:
             md.write(mdFile)

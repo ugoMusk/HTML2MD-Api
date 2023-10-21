@@ -68,7 +68,7 @@ _ __ _
     
     
     define foobar() {
-        print "Welcome to html2md, here feels a little different! You can click somewhere top right to copy me. awesome stuff!";
+        print "Welcome to html2md, here feels a little different! You can click somewhere right to copy me. awesome stuff!";
     }
 
 (which makes copying & pasting easier). You can optionally mark the delimited

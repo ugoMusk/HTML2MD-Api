@@ -1,22 +1,66 @@
-![Static Badge](https://img.shields.io/badge/html2md-api_docs-blue)
+Public
 
-# Html2md API Documentation
+Documentation Settings _ _
 
-**This collection is intended to test markdown styling inside our engine or
+ENVIRONMENT
+
+No Environment
+
+_ _
+
+LAYOUT
+
+Double Column
+
+_ _
+
+LANGUAGE
+
+cURL - cURL
+
+_ _
+
+_ _
+
+Markdown in API Documentation
+
+Introduction
+
+An h1 header
+
+_ _
+
+_ _
+
+Basic Markdown Elements
+
+_ _
+
+_ _
+
+Daring Fireball Basic Syntax
+
+_ _
+
+_ _
+
+Daring Fireball Extended Syntax
+
+# Markdown in API Documentation
+
+**This collection is intended to test markdown styling inside Postman or
 within other services that render Markdown. The descriptions in this
 collection contain markdown syntax and some of them have links to HTML pages
 of their rendered version.**
 
-If you want to test Markdown, use provided routes at http://api.html2md.tech/test_convert
+If you want to test Markdown, use http://markdownlivepreview.com/
 
 Also, developers love Github Markdown Styling:
-that's our priority!
-
-## A guide to get you hit the ground running with parsing markdown
+https://github.com/sindresorhus/github-markdown-css
 
 * * *
 
-# This is an h1 header
+# An h1 header
 
 Paragraphs are separated by a blank line.
 
@@ -38,7 +82,7 @@ Use 3 dashes for an em-dash. Use 2 dashes for ranges (ex., "it's all in
 chapters 12--14"). Three dots ... will be converted to an ellipsis. Unicode is
 supported. ☺
 
-## This is an  h2 header
+## An h2 header
 
 Here's a numbered list:
 
@@ -68,7 +112,7 @@ _ __ _
     
     
     define foobar() {
-        print "Welcome to html2md, here feels a little different! You can click somewhere right to copy me. awesome stuff!";
+        print "Welcome to flavor country!";
     }
 
 (which makes copying & pasting easier). You can optionally mark the delimited
@@ -87,10 +131,10 @@ _ __ _
         time.sleep(0.5)
         print i
 
-### This is an h3 header
+### An h3 header
 
-#### Write me a recipe!
 Now a nested list:
+
   * First, get these ingredients:
 
     * carrots
@@ -106,8 +150,8 @@ Plain Text
 
 _ __ _
 
-    #### The story continues!
-    find wooden spoon
+    
+        find wooden spoon
     uncover pot
     stir
     cover pot
@@ -168,7 +212,7 @@ Here's a "line block":
 
 and images can be specified like so:
 
-![example image](https://www.getpostman.com/img/v2/#)
+![example image](https://www.getpostman.com/img/v2/logo-big.svg)
 
 example image
 
@@ -180,4 +224,3 @@ $$I = \int \rho R^{2} dV$$
 And note that you can backslash-escape any punctuation characters which you
 wish to be displayed literally, ex.: `foo`, *bar*, etc.
 
-"

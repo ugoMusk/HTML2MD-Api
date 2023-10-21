@@ -2,3 +2,6 @@ pytest
 uvicorn
 SQLAlchemy
 mysqlclient
+flask
+Markdown
+html2text

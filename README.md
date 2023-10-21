@@ -1,4 +1,4 @@
-[![api-docs](https://img.shields.io/pypi/v/markdown_css.svg)](https://api.html2md.tech)
+![Static Badge](https://img.shields.io/badge/html2md-api_docs-blue)
 
 # Html2md API Documentation
 

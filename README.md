@@ -1,29 +1,5 @@
-HTML2MD_API.
-Public
+![api-docs](https://img.shields.io/pypi/v/markdown_css.svg)](https://#)
 
-Documentation Settings _ _
-
-ENVIRONMENT
-
-No Environment
-
-_ _
-
-LAYOUT
-
-Double Column
-
-_ _
-
-LANGUAGE
-
-cURL - cURL
-
-_ _
-
-_ _
-
-API Documentation
 # Html2md API Documentation
 
 **This collection is intended to test markdown styling inside our engine or

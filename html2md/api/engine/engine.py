@@ -19,8 +19,8 @@ def convertMarkdown2Html(markdown):
 
 
 if __name__ == '__main__':
-    htmlFilePath = "file_resource/test.html"
-    mdFilePath = "file_resource/test.md"
+    htmlFilePath = "html2md/api/engine/file_resource/test.html"
+    mdFilePath = "html2md/api/engine/file_resource/test.md"
     with open(htmlFilePath, mode="r", encoding="utf-8") as htmlFile:
         htmlFile = htmlFile.read()
     mdFile = convertHtml2Markdown(htmlFile)

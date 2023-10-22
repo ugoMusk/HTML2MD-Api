@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """ converter engine """
 
-import markdown
 import html2text
+import requests
+import markdown
 
 def convertHtml2Markdown(html):
     """ converts html to markdown format """
@@ -18,7 +19,13 @@ def convertMarkdown2Html(markdown):
     return htmlResult
 
 
-if __name__ == '__main__':
+def downLoadUrl(url):
+    """ scrab the web """
+    pass
+
+    
+def main():
+    """ entry point """
     print("engine build success!")
     # htmlFilePath = "html2md/api/engine/file_resource/test.html"
     # mdFilePath = "html2md/api/engine/file_resource/test.md"
@@ -30,3 +37,7 @@ if __name__ == '__main__':
             # md.write(mdFile)
         # except FileNotFoundError:
             #print(f"{mdFilePath} does not exist")
+
+
+if __name__ == '__main__':
+    main()

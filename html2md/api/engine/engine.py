@@ -2,7 +2,7 @@
 """ converter engine """
 
 import html2text
-import requests
+import requests_html
 import markdown
 
 def convertHtml2Markdown(html):

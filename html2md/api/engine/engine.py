@@ -2,7 +2,7 @@
 """ converter engine """
 
 import html2text
-import requests_html
+from requests_html import HTMLSession
 import markdown
 
 def convertHtml2Markdown(html):
@@ -19,14 +19,36 @@ def convertMarkdown2Html(markdown):
     return htmlResult
 
 
-def downLoadUrl(url):
+def downloadUrl(url):
     """ scrab the web """
-    pass
+    session = HTMLSession()
+    url = url
+    res = session.get(url)
+    res.encoding = "utf-8"
+    body = res.text
+
+    path2Html = "scrab.html"
+    path2Md = "scrab.md"
+
+    with open(path2Html, mode="w", encoding="utf-8") as scrabFile:
+        try:
+            scrabFile.write(body)
+        except Exception as e:
+            print(e)
+    with open(path2Html, mode="r", encoding="utf-8") as scrabFile:
+        htmlFile = scrabFile.read()
+    with open(path2Md, mode="w", encoding="utf-8") as scrabMd:
+        try:
+            convertedMd = convertHtml2Markdown(htmlFile)
+            scrabMd.write(convertedMd)
+        except FileNotFoundError:
+            print(f"{scrabMd} Not Found!")
 
     
 def main():
     """ entry point """
     print("engine build success!")
+    #downloadUrl("https://www.geeksforgeeks.org/flask-http-methods-handle-get-post-requests/")
     # htmlFilePath = "html2md/api/engine/file_resource/test.html"
     # mdFilePath = "html2md/api/engine/file_resource/test.md"
     #with open(htmlFilePath, mode="r", encoding="utf-8") as htmlFile:

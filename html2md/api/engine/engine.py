@@ -19,13 +19,14 @@ def convertMarkdown2Html(markdown):
 
 
 if __name__ == '__main__':
-    htmlFilePath = "html2md/api/engine/file_resource/test.html"
-    mdFilePath = "html2md/api/engine/file_resource/test.md"
-    with open(htmlFilePath, mode="r", encoding="utf-8") as htmlFile:
-        htmlFile = htmlFile.read()
-    mdFile = convertHtml2Markdown(htmlFile)
-    with open(mdFilePath, mode="w", encoding="utf-8") as md:
-        try:
-            md.write(mdFile)
-        except FileNotFoundError:
-            print(f"{mdFilePath} does not exist")
+    print("engine build success!")
+    # htmlFilePath = "html2md/api/engine/file_resource/test.html"
+    # mdFilePath = "html2md/api/engine/file_resource/test.md"
+    #with open(htmlFilePath, mode="r", encoding="utf-8") as htmlFile:
+        # htmlFile = htmlFile.read()
+    # mdFile = convertHtml2Markdown(htmlFile)
+    #with open(mdFilePath, mode="w", encoding="utf-8") as md:
+        # try:
+            # md.write(mdFile)
+        # except FileNotFoundError:
+            #print(f"{mdFilePath} does not exist")

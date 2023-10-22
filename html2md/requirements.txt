@@ -4,3 +4,4 @@ SQLAlchemy
 mysqlclient
 flask
 Markdown
+html2text

@@ -5,3 +5,4 @@ mysqlclient
 flask
 Markdown
 html2text
+requests_html

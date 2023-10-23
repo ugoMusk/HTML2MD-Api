@@ -6,6 +6,5 @@ flask
 Markdown
 html2text
 requests_html
-os
 requests
 base64

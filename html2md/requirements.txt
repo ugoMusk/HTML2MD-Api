@@ -7,4 +7,3 @@ Markdown
 html2text
 requests_html
 requests
-base64

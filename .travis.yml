@@ -19,9 +19,8 @@ script:
   - docker ps
   - docker logs html2mddb
   - pytest
-  - python3 html2md/api/engine/engine.py
-  - python3 html2md/api/engine/git-api.py
-  - python3 html2md/api/engine/api.py
+  - python3 html2md/models/engine/engine.py
+  - python3 html2md/models/engine/route.py
 deploy:
   provider: script
   script: python3 html2md/testsql.py

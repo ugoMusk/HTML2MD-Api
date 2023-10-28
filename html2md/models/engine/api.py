@@ -40,6 +40,6 @@ def upload_file_to_github(file_path, repo_owner, repo_name, file_path_in_repo, g
     except Exception as e:
         print(f"Error: {e}")
 
-file_path, repo_owner, repo_name, file_path_in_repo, github_token = get_user_input()
+# file_path, repo_owner, repo_name, file_path_in_repo, github_token = get_user_input()
 
-upload_file_to_github(file_path, repo_owner, repo_name, file_path_in_repo, github_token)
+# upload_file_to_github(file_path, repo_owner, repo_name, file_path_in_repo, github_token)

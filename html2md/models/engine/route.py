@@ -3,19 +3,19 @@
 module defining our api endpoints
 """
 
-from flask import Flask
+from flask import Flask, jsonify
 from engine import downloadUrl, convertHtml2Markdown
 
 
 app = Flask(__name__)
 
 
-@app.route("/convert/url", methods=['GET'], strict_slashes=False)
-def getMarkdown():
+@app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
+def getMarkdown(userUrl):
     """ 
     route method to parse html to markdown
     """
-    res = downloadUrl("https://www.geeksforgeeks.org/flask-http-methods-handle-get-post-requests/")
+    res = downloadUrl(userUrl)
     
     return res
 

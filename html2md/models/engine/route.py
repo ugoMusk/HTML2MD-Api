@@ -3,7 +3,7 @@
 module defining our api endpoints
 """
 
-from flask import Flask, jsonify
+from flask import Flask, jsonify, send_file
 from engine import downloadUrl, convertHtml2Markdown
 
 
@@ -31,6 +31,15 @@ def convertMarkdown():
     res = convertHtml2Markdown(html)
     
     return res
+
+
+@app.route("/download", methods=['GET'], strict_slashes=False)
+def downloadFile():
+    """
+    specify the path to the file to download
+    """
+    filePath = '/home/samke/HTML2MD-Api/html2md/models/engine/scab.md'
+    return send_file(filePath, as_attachment=True)
 
 
     

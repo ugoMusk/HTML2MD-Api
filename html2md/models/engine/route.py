@@ -41,6 +41,16 @@ def downloadFile():
     filePath = '/home/samke/HTML2MD-Api/html2md/models/engine/scab.md'
     return send_file(filePath, as_attachment=True)
 
+@app.route('/')
+def getClientIp():
+    """
+    retrieves client's Ip address
+    """
+    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
+        clientIp = request.environ['REMOTE_ADDR']
+    else:
+        clientIp = request.environ['HTTP_X_FORWARDED_FOR']
+    return f"Client's IP address: {client_ip}"
 
     
 if __name__ == "__main__":

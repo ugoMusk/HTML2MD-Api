@@ -1,9 +1,9 @@
 pytest
 uvicorn
 SQLAlchemy
-mysqlclient
+mysql-connector
 flask
 Markdown
 html2text
-requests_html
 requests
+requests_html

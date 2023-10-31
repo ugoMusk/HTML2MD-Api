@@ -2,10 +2,13 @@
 """
 module defining our api endpoints
 """
-
+import os
+import sys
+modelPath = os.path.abspath("../../models")
+sys.path.append(modelPath)
 from flask import Flask, jsonify, send_file
-from engine import downloadUrl, convertHtml2Markdown
-
+from engine.engine import downloadUrl, convertHtml2Markdown
+from storage.cookies import *
 
 app = Flask(__name__)
 
@@ -41,17 +44,21 @@ def downloadFile():
     filePath = '/home/samke/HTML2MD-Api/html2md/models/engine/scab.md'
     return send_file(filePath, as_attachment=True)
 
-@app.route('/')
-def getClientIp():
-    """
-    retrieves client's Ip address
-    """
-    if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        clientIp = request.environ['REMOTE_ADDR']
-    else:
-        clientIp = request.environ['HTTP_X_FORWARDED_FOR']
-    return f"Client's IP address: {client_ip}"
+@app.route("/")
+def setcookie_route():
+    # set a cookie with key "name" and value "Alice"
+    return cookies.set_cookie()
 
-    
+@app.route("/getcookie")
+def getcookie_route():
+    # get a cookie with key "name"
+    return cookies.get_cookie("name")
+
+@app.route("/deletecookie")
+def deletecookie_route():
+    # delete a cookie with key "name"
+    return cookies.delete_cookie("name")
+
+
 if __name__ == "__main__":
     app.run()

@@ -6,3 +6,4 @@ flask
 Markdown
 html2text
 requests
+requests_html

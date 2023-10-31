@@ -5,9 +5,10 @@ modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
 from proxyserver import access
 from flask import Flask, request, make_response
-from sqlalchemy import create_engine, Column, String, DateTime, Integer, LargeBinary, Table, MetaData
+from sqlalchemy import create_engine, Column, String, DateTime, Integer, LargeBinary, Table, MetaData, select
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.exc import PendingRollbackError, IntegrityError
 from datetime import datetime, timedelta
 from uuid import uuid4
 
@@ -31,7 +32,7 @@ class Users(Base):
     __tablename__ = "users"
     Id = Column(Integer, primary_key=True, autoincrement=True)
     userId = Column(String(255), nullable=True)
-    cookieValue = Column(String(255))
+    cookieValue = Column(String(255), unique=True)
     cookieExpires = Column(DateTime)
     # firstName = Column(String(128), nullable=True)
     # lastName = Column(String(128), nullable=True)
@@ -58,20 +59,25 @@ class Users(Base):
 # create table for cookies
 Base.metadata.create_all(engine)
 
+metadata = MetaData()
 # create session
 Session = sessionmaker(bind=engine)
 session = Session()
 
+cookieValue = access.getUserIp()
+cookieKey = "userId"
+users = Table("users", metadata,
+        Column("userId", String(255)),
+        Column("cookieValue", String(255), unique=True),
+        Column("cookieExpires", DateTime)
+        )
+
 # define function to generate cookie ID
 def generateCookieId():
-    cookieId = session.query(users).filter_by(cookieId).first()
-    if cookieId:
-        exit()
-        return 0
     return str(uuid4())
 
-cookieKey = "userId"
-cookieValue = access.getUserIp()
+
+
 # define function to set cookie
 def setCookie(key=cookieKey, value=cookieValue):
     # create response object
@@ -84,12 +90,15 @@ def setCookie(key=cookieKey, value=cookieValue):
     # get current time and add one day for expiration
     now = datetime.now()
     expires = now + timedelta(days=1)
+    try:
 
-    # result = session.query(users.name).filter(users.age > 20).all()
-    # store cookie data in database with ID, value, and expiration
-    cookie = Users(cookieId, value, expires)
-    session.add(cookie)
-    session.commit()
+        # result = session.query(users.name).filter(users.age > 20).all()
+        # store cookie data in database with ID, value, and expiration
+        cookie = Users(cookieId, value, expires)
+        session.add(cookie)
+        session.commit()
+    except IntegrityError:
+        session.rollback()
     return resp
 
 # define function to get cookie

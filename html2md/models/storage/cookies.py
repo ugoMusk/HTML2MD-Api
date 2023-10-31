@@ -5,7 +5,7 @@ modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
 from proxyserver import access
 from flask import Flask, request, make_response
-from sqlalchemy import create_engine, Column, String, DateTime, Integer, LargeBinary
+from sqlalchemy import create_engine, Column, String, DateTime, Integer, LargeBinary, Table, MetaData
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime, timedelta
@@ -27,30 +27,32 @@ engine = create_engine(f"mysql://{app.config['MYSQL_USER']}:{app.config['MYSQL_P
 Base = declarative_base()
 
 # define Cookie class
-class User(Base):
+class Users(Base):
     __tablename__ = "users"
-    userId = Column(String(255), primary_key=True)
+    Id = Column(Integer, primary_key=True, autoincrement=True)
+    userId = Column(String(255), nullable=True)
     cookieValue = Column(String(255))
     cookieExpires = Column(DateTime)
-    firstName = Column(String(128), nullable=True)
-    lastName = Column(String(128), nullable=True)
-    userName = Column(String(128), nullable=True)
-    userPass = Column(String(128), nullable=True)
-    visitCounts = Column(Integer, nullable=True)
-    apiKey = Column(String(255), nullable=True)
-    userFile = Column(LargeBinary, nullable=True)
+    # firstName = Column(String(128), nullable=True)
+    # lastName = Column(String(128), nullable=True)
+    # userName = Column(String(128), nullable=True)
+    # userPass = Column(String(128), nullable=True)
+    # visitCounts = Column(Integer, nullable=True)
+    # apiKey = Column(String(255), nullable=True)
+    # userFile = Column(LargeBinary, nullable=True)
 
     def __init__(self, *args):
-        self.cookieId = args[0]
+        
+        self.userId = args[0]
         self.cookieValue = args[1]
         self.cookieExpires = args[2]
-        self.firstName = args[3] or ""
-        self.lastName = args[4] or ""
-        self.userName = args[5] or ""
-        self.userPass = args[6] or ""
-        self.visitCounts = args[7] or 0
-        self.apiKey = args[8] or ""
-        self.userFile = args[9] or ""
+        # self.firstName = args[3] or ""
+        # self.lastName = args[4] or ""
+        # self.userName = args[5] or ""
+        # self.userPass = args[6] or ""
+        # self.visitCounts = args[7] or 0
+        # self.apiKey = args[8] or ""
+        # self.userFile = args[9] or ""
         
 
 # create table for cookies
@@ -62,13 +64,18 @@ session = Session()
 
 # define function to generate cookie ID
 def generateCookieId():
+    cookieId = session.query(users).filter_by(cookieId).first()
+    if cookieId:
+        exit()
+        return 0
     return str(uuid4())
 
-cookieKey = "user_id"
+cookieKey = "userId"
 cookieValue = access.getUserIp()
 # define function to set cookie
 def setCookie(key=cookieKey, value=cookieValue):
     # create response object
+
     resp = make_response("Setting the cookie")
     # generate cookie ID
     cookieId = generateCookieId()
@@ -77,6 +84,8 @@ def setCookie(key=cookieKey, value=cookieValue):
     # get current time and add one day for expiration
     now = datetime.now()
     expires = now + timedelta(days=1)
+
+    # result = session.query(users.name).filter(users.age > 20).all()
     # store cookie data in database with ID, value, and expiration
     cookie = Users(cookieId, value, expires)
     session.add(cookie)

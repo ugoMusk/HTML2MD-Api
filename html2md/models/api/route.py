@@ -8,7 +8,7 @@ modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
 from flask import Flask, jsonify, send_file
 from engine.engine import downloadUrl, convertHtml2Markdown
-from storage.cookies import *
+from storage import cookies
 
 app = Flask(__name__)
 
@@ -47,17 +47,17 @@ def downloadFile():
 @app.route("/")
 def setcookie_route():
     # set a cookie with key "name" and value "Alice"
-    return cookies.set_cookie()
+    return cookies.setCookie()
 
 @app.route("/getcookie")
 def getcookie_route():
     # get a cookie with key "name"
-    return cookies.get_cookie("name")
+    return cookies.getCookie("name")
 
 @app.route("/deletecookie")
 def deletecookie_route():
     # delete a cookie with key "name"
-    return cookies.delete_cookie("name")
+    return cookies.deleteCookie("name")
 
 
 if __name__ == "__main__":

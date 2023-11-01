@@ -6,14 +6,12 @@ import subprocess
 
 mysqlRootUser = os.environ.get("MYSQL_ROOT_USER")
 mysqlRootPassword = os.environ.get("MYSQL_ROOT_PASSWORD")
-html2mdUser = os.environ.get("HTML2MD_USER")
-html2mdPass = os.environ.get("HTML2MD_PASS")
 
-""" ip = subprocess.check_output(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "html2mddb"]).decode("utf-8").strip()
+ip = subprocess.check_output(["docker", "inspect", "-f", "{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}", "html2mddb"]).decode("utf-8").strip()
 print(f"database ip address: {ip}")
-"""
+
 # Create an engine to connect to the MySQL database using the user credentials and the host name of the MySQL container
-engine = sqlalchemy.create_engine("mysql+mysqlconnector://{}:{}@localhost/html2md".format(html2mdUser, html2mdPass))
+engine = sqlalchemy.create_engine("mysql+mysqlconnector://{}:{}@{}/html2md".format(mysqlRootUser, mysqlRootPassword, ip))
 
     
 Session = sessionmaker(bind=engine)

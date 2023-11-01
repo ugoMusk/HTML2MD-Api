@@ -4,13 +4,12 @@
 
 **This collection is intended to test markdown styling inside our engine or
 within other services that render Markdown. The descriptions in this
-collection contain markdown syntax and some of them have links to HTML pages
-of their rendered version.**
+collection contain markdown syntax and some of them extensively covered in our official docs
 
-If you want to test Markdown, use provided routes at http://api.html2md.tech/test_convert
+If you want to test HTML2MD using provided routes, we would have made available easy guide to get you started.
 
-Also, developers love Github Markdown Styling:
-that's our priority!
+Also we understand, developers love Github Markdown Styling:
+That's Our Priority!
 
 ## A guide to get you hit the ground running with parsing markdown
 

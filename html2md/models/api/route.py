@@ -6,21 +6,26 @@ import os
 import sys
 modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
-from flask import Flask, jsonify, send_file
+from flask import Flask, jsonify, send_file, render_template
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
+from flask_cors import CORS
 
 app = Flask(__name__)
 
+CORS(app)
+@app.route("/convert/url/<userUrl>", methods=['GET'], strict_slashes=False)
 
-@app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
+#@app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
 def getMarkdown(userUrl):
     """ 
     route method to parse html to markdown
     """
+    print("Received URL:", userUrl)
     res = downloadUrl(userUrl)
     
-    return res
+    return render_template('render_temp.html', result=res)
+    #return res
 
 
 @app.route("/convert", methods=['GET'], strict_slashes=False)
@@ -33,6 +38,7 @@ def convertMarkdown():
 
     res = convertHtml2Markdown(html)
     
+    # return render_template('render_temp.html', result=res)
     return res
 
 

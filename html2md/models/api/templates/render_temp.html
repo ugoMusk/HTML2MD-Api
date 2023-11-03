@@ -1,74 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL to Markdown Converter</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
-            color: #343a40;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-            margin-top: 50px;
-        }
-        #urlInput {
-            width: calc(100% - 20px);
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        #convertButton {
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        #convertButton:hover {
-            background-color: #0056b3;
-        }
-        #outputTextarea {
-            width: calc(100% - 20px);
-            height: 200px;
-            font-size: 14px;
-            padding: 10px;
-            resize: none;
-        }
-    </style>
-</head>
-<body>
+
+    <link href="{{ url_for('static', filename='css/custom.css') }}" rel="stylesheet" type="text/css"> 
+  </head>
+  <body>
     <div class="container">
-        <h1>URL to Markdown Converter</h1>
-        <input type="text" id="urlInput" placeholder="Enter URL" required>
-        <br>
-        <button id="convertButton">Convert</button>
-        <div id="result">
-            <textarea id="outputTextarea" readonly></textarea>
-        </div>
+      <h1>URL to Markdown Converter</h1>
+      <input type="text" id="urlInput" placeholder="Enter URL" required>
+      <br>
+      <button id="convertButton">Convert</button>
+      <div id="result">
+        <textarea id="outputTextarea" readonly>{{ result|safe }}</textarea>
+	
+      </div>
     </div>
-
-
-    <script>
-        document.getElementById("convertButton").addEventListener("click", function() {
-            var userUrl = document.getElementById("urlInput").value;
-            fetch("/convert/url/" + encodeURIComponent(userUrl))
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById("outputTextarea").value = data;
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                });
-        });
-    </script>
-</body>
+    <script src="{{ url_for('static', filename='js/custom.js') }}" type="text/javascript"></script>
+  </body>
 </html>

@@ -1,46 +1,23 @@
-Gmail
+ **Search** Images Maps Play YouTube News Gmail Drive _More_ »
 
-Picha
+Web History | Settings | Sign in
 
-Ingia
+  
 
-![Google](/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png)
+![Google](/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png)  
+  
 
-![](/tia/tia.png)
+ |
 
-* * * *
+  
+| Advanced search  
+---|---|---  
+  
+  
 
-Angalia mengine
+Google offered in: Hausa Igbo Èdè Yorùbá Nigerian Pidgin
 
-Futa
+AdvertisingBusiness SolutionsAbout GoogleGoogle.com.ng
 
-* Futa
-
-Ripoti kuhusu ubashiri usiofaa
-
-Google inapatikana katika: English
-
-Kenya
-
-Kuhusu GoogleMatangazo Biashara Jinsi huduma ya Tafuta inavyofanya kazi
-
-FaraghaMasharti
-
-Mipangilio
-
-Mipangilio ya utafutaji
-
-Utafutaji wa kina
-
-Data yako katika Huduma ya Tafuta na Google
-
-Historia ya mambo uliyotafuta
-
-Kituo cha usaidizi
-
-Tuma maoni
-
-Mandhari meusi: Yamezimwa
-
-Programu za Google
+(C) 2023 - Privacy \- Terms
 

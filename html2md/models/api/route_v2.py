@@ -27,11 +27,12 @@ def getMarkdown(userUrl):
     """ 
     route method to parse html to markdown
     """
-    app.logger.info(f"Received URL: {userUrl}")
-    res = downloadUrl(userUrl)
-    return send_file(res, as_attachment=True)
-    #return render_template('rapid.html', result=res)
-    #return res
+    convertedMd, html_file_path = downloadUrl(userUrl)
+    if convertedMd:
+        return convertedMd
+    else:
+        return "Error occurred during conversion", 500
+
 
 
 @app.route("/convert", methods=['GET'], strict_slashes=False)

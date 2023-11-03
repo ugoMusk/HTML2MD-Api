@@ -77,7 +77,8 @@ def downloadUrl(url):
                     return convertedMd
     except FileNotFoundError:
         print(f"{path2Html} not found")
-
+        
+    return convertedMd
     
 def main():
     """ entry point """

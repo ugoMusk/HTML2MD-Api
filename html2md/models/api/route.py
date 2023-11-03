@@ -6,7 +6,7 @@ import os
 import sys
 modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
-from flask import Flask, jsonify, send_file, render_template, url_for, redirect
+from flask import Flask, jsonify, send_file, render_template, url_for, redirect, request
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
 from flask_cors import CORS, cross_origin
@@ -15,16 +15,16 @@ app = Flask(__name__)
 
 CORS(app)
 
-@app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
+@app.route("/convert/url/<path:userUrl>", methods=['POST'], strict_slashes=False)
 def getMarkdown(userUrl):
     """ 
     route method to parse html to markdown
     """
-    print("Received URL:", userUrl)
+    userUrl = request.form.get('name')
     res = downloadUrl(userUrl)
     
-    return render_template('render_temp.html')
-    #return res
+    return render_template('render_temp.html', result=res)
+    # return res
 
 
 @app.route("/convert", methods=['GET'], strict_slashes=False)
@@ -60,7 +60,7 @@ def downloadFile():
 @app.route("/")
 def setCookieRoute():
     # set a cookie with key "name" and value "Alice"
-    return render_template("myr.html", cookies=cookies.setCookie())
+    return render_template("render_temp.html", cookies=cookies.setCookie())
 
 @app.route("/getcookie")
 def getCookieRoute():

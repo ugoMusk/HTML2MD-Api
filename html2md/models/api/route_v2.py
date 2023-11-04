@@ -11,9 +11,14 @@ from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
 from flask_cors import CORS, cross_origin
 
+
 app = Flask(__name__)
 
 CORS(app)
+@app.route("/convert/url/", methods=['GET'], strict_slashes=False)
+def handleMissingURL():
+    return "Error: No URL provided."
+
 
 @app.route("/convert/url/<path:userUrl>", methods=['POST'], strict_slashes=False)
 def getMarkdown(userUrl):
@@ -25,7 +30,11 @@ def getMarkdown(userUrl):
     
     return render_template('render_temp.html', result=res)
     # return res
-
+    # convertedMd, html_file_path = downloadUrl(userUrl)
+    # if convertedMd:
+      #  return convertedMd
+    # else:
+      #  return "Error occurred during conversion", 500
 
 @app.route("/convert", methods=['GET'], strict_slashes=False)
 def convertMarkdown():
@@ -57,10 +66,13 @@ def downloadFile():
     except FileNotFoundError:
         sendFile = (f"{filePath} does not exists")
     return sendFile
+
 @app.route("/")
 def setCookieRoute():
     # set a cookie with key "name" and value "Alice"
     return render_template("render_temp.html", cookies=cookies.setCookie())
+    #return cookies.setCookie()
+    # return render_template("rapid.html")
 
 @app.route("/getcookie")
 def getCookieRoute():
@@ -79,4 +91,4 @@ def redirecRoute(url):
     return redirect(url)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

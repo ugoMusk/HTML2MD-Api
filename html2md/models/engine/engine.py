@@ -27,8 +27,8 @@ def downloadUrl(url):
     res.encoding = "utf-8"
     body = res.text
 
-    # path2Html = "scrab.html"
-    # path2Md = "scrab.md"
+    path2Html = "scrab.html"
+    path2Md = "scrab.md"
 
     with open(path2Html, mode="w", encoding="utf-8") as scrabFile:
         try:

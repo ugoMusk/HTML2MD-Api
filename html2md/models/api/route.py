@@ -11,20 +11,32 @@ from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
 from flask_cors import CORS, cross_origin
 
+
 app = Flask(__name__)
 
 CORS(app)
+
+@app.route("/convert/url/", methods=['GET'], strict_slashes=False)
+def handleMissingURL():
+    return "Error: No URL provided."
+
+#@app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
 
 @app.route("/convert/url/<path:userUrl>", methods=['POST'], strict_slashes=False)
 def getMarkdown(userUrl):
     """ 
     route method to parse html to markdown
     """
-    userUrl = request.form.get('name')
-    res = downloadUrl(userUrl)
+    #userUrl = request.form.get('name')
+    #res = downloadUrl(userUrl)
     
     return render_template('convert.html', result=res)
     # return res
+    convertedMd, html_file_path = downloadUrl(userUrl)
+    if convertedMd:
+        return convertedMd
+    else:
+        return "Error occurred during conversion", 500
 
 
 @app.route("/convert", methods=['GET'], strict_slashes=False)
@@ -49,6 +61,7 @@ def downloadFile():
     """
     specify the path to the file to download
     """
+<<<<<<< HEAD
     filePath = 'scab.md'
     try:
         with open(filePath, mode="r", encoding="utf-8") as dFile:
@@ -57,10 +70,13 @@ def downloadFile():
     except FileNotFoundError:
         sendFile = (f"{filePath} does not exists")
     return sendFile
+
 @app.route("/")
 def setCookieRoute():
     # set a cookie with key "name" and value "Alice"
-    return render_template("render_temp.html", cookies=cookies.setCookie())
+    #return render_template("render_temp.html", cookies=cookies.setCookie())
+    #return cookies.setCookie()
+    return render_template("rapid.html")
 
 @app.route("/getcookie")
 def getCookieRoute():
@@ -79,4 +95,4 @@ def redirecRoute(url):
     return redirect(url)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)

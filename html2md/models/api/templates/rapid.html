@@ -164,8 +164,14 @@
             <li class="col-6-12 left middle">
               <h1 class="ae-1 fromLeft">Convert easily, speed up development time!</h1>
               <p class="ae-2 fromLeft"><span class="opacity-8">We offer the most seamless conversion from HTML to Markdown via our API Endpoints.</span></p>
-              <button class="button blue gradient ae-3 fromCenter cropLeft" onclick="{window.location.href = '/convert/url/'}">Get Started</button>
-              <!--<a class="button blue gradient ae-3 fromCenter cropLeft">Get Started</a><a class="button white ae-4 fromCenter">Learn more</a>-->
+              <a class="button blue gradient ae-3 fromCenter cropLeft" href="{{ url_for('downloadFile', getMarkdown='www.google.com') }}">Get Started</a>
+              <a class="button blue gradient ae-3 fromCenter cropLeft" href="{{ url_for('downloadFile', downloadUrl='www.google.com') }}">Get Started</a>
+              
+              <a class="button blue gradient ae-3 fromCenter cropLeft" href="../static/render_temp.html">Get Started</a>
+
+              
+              <!--<button class="button blue gradient ae-3 fromCenter cropLeft" onclick="{window.location.href = '/convert/url/'}">Get Started</button>
+              <a class="button blue gradient ae-3 fromCenter cropLeft">Get Started</a><a class="button white ae-4 fromCenter">Learn more</a>-->
             </li>
             <li class="col-6-12">
               <img class="ae-4" width="605" src="../static/assets/img/iphones-34.png" alt="iPhones Thumbnail" data-action="zoom"/>

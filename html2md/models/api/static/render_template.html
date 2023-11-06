@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML to Markdown Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 150px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <label for="userHtml">Enter HTML:</label>
+    <textarea id="userHtml"></textarea>
+    <button id="convertBtn">Convert</button>
+    <label for="markdownOutput">Markdown Output:</label>
+    <textarea id="markdownOutput" readonly></textarea>
+
+    <script>
+        document.getElementById("convertBtn").addEventListener("click", function() {
+            var userHtml = document.getElementById("userHtml").value;
+            fetch("/convert", {
+                method: "POST",
+                body: JSON.stringify({ userHtml: userHtml }),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(response => response.text())  // Parse the response as text
+            .then(data => {
+                document.getElementById("markdownOutput").value = data;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+</html>

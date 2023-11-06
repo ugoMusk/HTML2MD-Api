@@ -6,7 +6,7 @@ import os
 import sys
 modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
-from flask import Flask, jsonify, send_file, render_template, url_for 
+from flask import Flask, jsonify, send_file, render_template, url_for, request
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
 from flask_cors import CORS
@@ -35,19 +35,17 @@ def getMarkdown(userUrl):
 
 
 
-@app.route("/convert", methods=['GET'], strict_slashes=False)
-def convertMarkdown():
-    """ 
-    route method to parse html to markdown
-    """
-    with open("scrab.html", mode="r", encoding="utf-8") as htmlFile:
-        html = htmlFile.read()
-
-    res = convertHtml2Markdown(html)
+@app.route("/convert", methods=['POST'], strict_slashes=False)
+def convert():
+    try:
+        data = request.get_json()
+        userHtml = data.get('userHtml', '')
+        convertedMD = convertHtml2Markdown(userHtml)
+        return convertedMD
+    except Exception as e:
+        print(f"Error occurred: {e}")
+        return "Error occurred during conversion"
     
-    # return render_template('render_temp.html', result=res)
-    return res
-
 
 @app.route("/download", methods=['GET'], strict_slashes=False)
 def downloadFile():

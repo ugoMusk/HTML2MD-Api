@@ -10,7 +10,8 @@ from flask import Flask, jsonify, send_file, render_template, url_for, request
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
 from flask_cors import CORS
-
+import requests
+import base64
 
 app = Flask(__name__)
 
@@ -45,7 +46,37 @@ def convert():
     except Exception as e:
         print(f"Error occurred: {e}")
         return "Error occurred during conversion"
-    
+
+
+@app.route('/upload', methods=['POST'])
+def upload_to_github():
+    try:
+        data = request.get_json()
+        markdown_content = data.get('file_content')
+        repo_owner = data.get('repo_owner')
+        repo_name = data.get('repo_name')
+        file_path_in_repo = data.get('file_path_in_repo')
+        github_token = data.get('github_token')
+
+        base64_content = base64.b64encode(markdown_content.encode()).decode()
+
+        json_payload = {
+            "message": "Upload file",
+            "content": base64_content,
+        }
+
+        api_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contents/{file_path_in_repo}"
+
+        response = requests.put(api_url, json=json_payload, headers={"Authorization": f"Bearer {github_token}"})
+
+        if response.status_code == 201:
+            return jsonify({"message": "File uploaded to GitHub successfully."}), 201
+        else:
+            return jsonify({"error": f"Failed to upload file to GitHub. Status code: {response.status_code}"}), 500
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+        
 
 @app.route("/download", methods=['GET'], strict_slashes=False)
 def downloadFile():

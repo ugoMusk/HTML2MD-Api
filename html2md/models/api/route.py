@@ -15,17 +15,18 @@ app = Flask(__name__)
 
 CORS(app)
 
-@app.route("/convert/url/<path:userUrl>", methods=['POST'], strict_slashes=False)
-def getMarkdown(userUrl):
+@app.route("/convert/url", methods=['GET', 'POST'], strict_slashes=False)
+def getMarkdown():
     """ 
     route method to parse html to markdown
     """
     userUrl = request.form.get('name')
-    res = downloadUrl(userUrl)
-    
-    return render_template('convert.html', result=res)
+    if userUrl:
+        res = downloadUrl(userUrl)
+    else:
+        res = "Your converted Markdown will appear here"
+    return render_template('convert.html', userUrl=userUrl, result=res)
     # return res
-
 
 @app.route("/convert", methods=['GET'], strict_slashes=False)
 def convertMarkdown():
@@ -36,7 +37,7 @@ def convertMarkdown():
         with open("scrab.html", mode="r", encoding="utf-8") as htmlFile:
             html = htmlFile.read()
     except FileNotFoundError:
-        html = "<body>sacrab.md not found</body>"
+        html = "<body>please provide valid html</body>"
 
     res = convertHtml2Markdown(html)
     
@@ -60,7 +61,7 @@ def downloadFile():
 @app.route("/")
 def setCookieRoute():
     # set a cookie with key "name" and value "Alice"
-    return render_template("render_temp.html", cookies=cookies.setCookie())
+    return render_template("myr.html", cookies=cookies.setCookie())
 
 @app.route("/getcookie")
 def getCookieRoute():

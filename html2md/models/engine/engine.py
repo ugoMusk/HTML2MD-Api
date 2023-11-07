@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """ converter engine """
-
+import os
+import tempfile
+import hashlib
 import html2text
 from requests_html import HTMLSession
-import markdown
+import requests
+
 
 def convertHtml2Markdown(html):
     """ converts html to markdown format """
@@ -20,46 +23,46 @@ def convertMarkdown2Html(markdown):
 
 
 def downloadUrl(url):
-    """ scrab the web """
+    """Scrape the web and convert HTML to Markdown"""
     session = HTMLSession()
-    url = url
-    res = session.get(url)
-    res.encoding = "utf-8"
-    body = res.text
 
-    path2Html = "scrab.html"
-    path2Md = "scrab.md"
+    try:
+        res = session.get(url)
+        res.raise_for_status()
+        res.encoding = "utf-8"
+        body = res.text
 
-    with open(path2Html, mode="w", encoding="utf-8") as scrabFile:
-        try:
-            scrabFile.write(body)
-        except Exception as e:
-            print(e)
-    with open(path2Html, mode="r", encoding="utf-8") as scrabFile:
-        htmlFile = scrabFile.read()
-    with open(path2Md, mode="w", encoding="utf-8") as scrabMd:
-        try:
-            convertedMd = convertHtml2Markdown(htmlFile)
-            scrabMd.write(convertedMd)
-        except FileNotFoundError:
-            print(f"{scrabMd} Not Found!")
-    return convertedMd
-    
+        # Generate a unique hash for the URL to use as the filename
+        url_hash = hashlib.md5(url.encode()).hexdigest()
+
+        # Create a temporary directory to store files
+        temp_dir = tempfile.mkdtemp()
+
+        # Save the HTML content to a temporary file (for debugging purposes)
+        html_file_path = os.path.join(temp_dir, f"{url_hash}.html")
+        with open(html_file_path, mode="w", encoding="utf-8") as html_file:
+            html_file.write(body)
+
+        # Convert HTML to Markdown
+        convertedMd = convertHtml2Markdown(body)
+
+        return convertedMd, html_file_path
+
+    except requests.exceptions.HTTPError as errh:
+        print("Http Error:", errh)
+    except requests.exceptions.ConnectionError as errc:
+        print("Error Connecting:", errc)
+    except requests.exceptions.Timeout as errt:
+        print("Timeout Error:", errt)
+    except requests.exceptions.RequestException as err:
+        print("OOps: Something Else", err)
+
+    return None, None
+
+
 def main():
     """ entry point """
     print("engine build success!")
-    #downloadUrl("https://www.geeksforgeeks.org/flask-http-methods-handle-get-post-requests/")
-    # htmlFilePath = "html2md/api/engine/file_resource/test.html"
-    # mdFilePath = "html2md/api/engine/file_resource/test.md"
-    #with open(htmlFilePath, mode="r", encoding="utf-8") as htmlFile:
-        # htmlFile = htmlFile.read()
-    # mdFile = convertHtml2Markdown(htmlFile)
-    #with open(mdFilePath, mode="w", encoding="utf-8") as md:
-        # try:
-            # md.write(mdFile)
-        # except FileNotFoundError:
-            #print(f"{mdFilePath} does not exist")
-
 
 if __name__ == '__main__':
     main()

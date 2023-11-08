@@ -24,7 +24,11 @@
 
 document.getElementById("convertButton").addEventListener("click", function() {
     var userUrl = document.getElementById("urlInput").value;
+<<<<<<< HEAD
     fetch("/convert/url/<path:userUrl>" + encodeURIComponent(userUrl)).then(response => response.text()).then(data => {
+=======
+    fetch("/convert/url/" + encodeURIComponent(userUrl)).then(response => response.text()).then(data => {
+>>>>>>> 697ee8d (updates)
         document.getElementById("outputTextarea").value = data;
     }).catch(error => {
         console.error("Error:", error);

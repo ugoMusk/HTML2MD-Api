@@ -3,34 +3,27 @@
 module defining our api endpoints
 """
 import os
-import io
 import sys
 modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
-<<<<<<< HEAD
-from flask import Flask, jsonify, send_file, render_template, url_for, request,redirect
-=======
-from flask import Flask, jsonify, send_file, render_template, url_for, redirect
->>>>>>> 697ee8d (updates)
+from flask import Flask, jsonify, send_file, render_template, url_for, request
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
 from flask_cors import CORS
-
+import requests
+import base64
 
 app = Flask(__name__)
 
 CORS(app)
-<<<<<<< HEAD
 
 @app.route("/convert/url/", methods=['GET'], strict_slashes=False)
 def handleMissingURL():
     return "Error: No URL provided."
 
 @app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
-=======
->>>>>>> 697ee8d (updates)
 
-@app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
+#@app.route("/convert/url/<path:userUrl>", methods=['GET'], strict_slashes=False)
 def getMarkdown(userUrl):
     """ 
     route method to parse html to markdown
@@ -53,7 +46,7 @@ def convert():
     except Exception as e:
         print(f"Error occurred: {e}")
         return "Error occurred during conversion"
-    
+
 
 @app.route('/upload', methods=['POST'])
 def upload_to_github():
@@ -63,21 +56,7 @@ def upload_to_github():
         repo_owner = data.get('repo_owner')
         repo_name = data.get('repo_name')
         file_path_in_repo = data.get('file_path_in_repo')
-        github_token = data.get('github_token'
-    return render_template('render_temp.html')
-    #return res
-
-
-@app.route("/convert", methods=['GET'], strict_slashes=False)
-def convertMarkdown():
-    """ 
-    route method to parse html to markdown
-    """
-    try:
-        with open("scrab.html", mode="r", encoding="utf-8") as htmlFile:
-            html = htmlFile.read()
-    except FileNotFoundError:
-        html = "<body>sacrab.md not found</body>"
+        github_token = data.get('github_token')
 
         base64_content = base64.b64encode(markdown_content.encode()).decode()
 
@@ -97,10 +76,7 @@ def convertMarkdown():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-    
-    return render_template('render_temp.html', result=res)
-    # return res
-
+        
 
 @app.route("/download", methods=['GET'], strict_slashes=False)
 def downloadFile():
@@ -110,38 +86,22 @@ def downloadFile():
     filePath = '/mnt/c/Users/Susan/Desktop/html2md-api/HTML2MD-Api/html2md/models/api/scrab.md'
     return send_file(filePath, as_attachment=True)
 
-     filePath = 'scab.md'
-    try:
-        with open(filePath, mode="r", encoding="utf-8") as dFile:
-            mdFile = dFile.read()
-            sendFile = send_file(mdFile, as_attachment=True)
-    except FileNotFoundError:
-        sendFile = (f"{filePath} does not exists")
-    return sendFile
-
-
 @app.route("/")
-def setCookieRoute():
+def setcookie_route():
     # set a cookie with key "name" and value "Alice"
     #return cookies.setCookie()
     return render_template("rapid.html")
-    return render_template("myr.html", cookies=cookies.setCookie())
 
 @app.route("/getcookie")
-def getCookieRoute():
+def getcookie_route():
     # get a cookie with key "name"
     return cookies.getCookie("name")
 
 @app.route("/deletecookie")
-def deleteCookieRoute():
+def deletecookie_route():
     # delete a cookie with key "name"
     return cookies.deleteCookie("name")
 
-@app.route("/redirect")
-def redirecRoute(url):
-    #Set a redirection path
-    url = url_for(url)
-    return redirect(url)
 
 if __name__ == "__main__":
     app.run(debug=True)

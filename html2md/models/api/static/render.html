@@ -3,94 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL to Markdown Converter</title>
+    <title>HTML to Markdown Converter</title>
+    <!DOCTYPE html>
+<html>
+<head>
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px; /* Add margin to the body */
+}
 
-            background-color: #f8f9fa;
-            color: #213e5a;
-            margin: 0;
-            padding: 0;
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    text-align: center; /* Center the heading */
+}
+
+.input-container,
+.output-container {
+    display: inline-block; /* Set display to inline-block */
+    width: 45%; /* Adjust the width */
+    vertical-align: top; /* Align the containers to the top */
+    margin: 0 10px; /* Add margin between the containers */
+}
+
+textarea {
+    width: calc(100% - 20px);
+    margin-bottom: 10px;
+    padding: 10px;
+    box-sizing: border-box; /* Include padding and border in the width */
+}
+
+button {
+    margin-top: 10px;
+}
+
+.urlInput {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 20px;
+    text-align: center; /* Center the label and input */
+}
+
+.urlInput input {
+    width: 80%;
+    height: 30px;
+    margin-top: 10px;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.textareas-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px; /* Add some margin between the URL input and textareas */
         }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-            margin-top: 50px;
-        }
-        #urlInput {
-            width: calc(100% - 30px);
-            padding: 10px;
-            margin-bottom: 20px;
-            font-size: 16px;
-        }
-        .button {
-            background-color: #007bff;
-            color: #ffffff;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        .button:hover {
-            background-color: #0056b3;
-        }
-        #convertButton {
-            margin-right: 10px;
-        }
-        #clearButton {
-            background-color: #dc3545;
-        }
-        #outputTextarea {
-            width: calc(100% - 30px);
-            height: 400px;
-            font-size: 14px;
-            padding: 10px;
-            resize: none;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
+
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>URL to Markdown Converter</h1>
-        <input type="text" id="urlInput" placeholder="Enter URL" required>
-        <br>
-        <button id="convertButton" class="button">Convert</button>
-        <button id="clearButton" class="button">Clear Output</button>
-        <div id="result">
-            <textarea id="outputTextarea" readonly></textarea>
-        </div>
+        <h1>HTML to Markdown Converter</h1>
+
     </div>
 
+    <div class="urlInput">
+        <label for="urlInput">Enter URL:</label>
+        <input type="text" id="urlInput" placeholder="Enter URL">
+    </div>
+
+    <div>
+        <button id="convertHtmlBtn">Convert HTML to Markdown</button>
+        <button id="clearButton">Clear Output</button>
+        <button id="convertUrlBtn">Convert URL to Markdown</button>
+
+
+    </div>
+
+    <div class="textareas-container">
+        <div class="input-container">
+            <label for="userHtml">Enter HTML:</label>
+            <textarea id="userHtml" rows="10" cols="50"></textarea>
+            <br>
+        </div>
+
+        <div class="output-container">
+            <label for="userHtml">Output:</label>
+            <textarea id="outputTextarea" rows="10" cols="50"></textarea>
+        </div>
+    </div>
     <script>
-       document.getElementById("convertButton").addEventListener("click", function() {
-            var userUrl = document.getElementById("urlInput").value;
-            fetch(`/convert/url/${encodeURIComponent(userUrl)}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                return response.text(); // or response.json() if the server sends JSON
-            })
-            .then(data => {
-                document.getElementById("outputTextarea").value = data; // Assuming outputTextarea is the ID of your output textarea
-            })
-            .catch(error => {
-                console.error("Error:", error);
-            });
+        document.getElementById("convertHtmlBtn").addEventListener("click", function() {
+            var userHtml = document.getElementById("userHtml").value;
+            if (userHtml) {
+                fetch("/convert", {
+                    method: "POST",
+                    body: JSON.stringify({ userHtml: userHtml }),
+                    headers: {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("outputTextarea").value = data;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            } else {
+                console.error("No HTML input provided.");
+            }
         });
 
-        // Add event listener for the "Clear Output" button
+        document.getElementById("convertUrlBtn").addEventListener("click", function() {
+            var userUrl = document.getElementById("urlInput").value;
+            if (userUrl) {
+                fetch(`/convert/url/${encodeURIComponent(userUrl)}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById("outputTextarea").value = data;
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                });
+            } else {
+                console.error("No URL input provided.");
+            }
+        });
+
         document.getElementById("clearButton").addEventListener("click", function() {
-            // Clear the output text area
             document.getElementById("outputTextarea").value = "";
         });
-
     </script>
 </body>
+</html>
+
 </html>

@@ -7,119 +7,130 @@
     <title>HTML to Markdown Converter</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+        font-family: Arial, sans-serif;
+        background-color: #f5f5f5;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-        .container {
-            max-width: 600px;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: white;
-            text-align: center;
-        }
+    .container {
+        display: flex;
+        justify-content: center;
+    }
 
-        .input-group {
-            margin-bottom: 20px;
-        }
+    .input-container,
+    .output-container {
+        max-width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        background-color: white;
+        margin: 0 20px;
+    }
 
-        .input-group label {
-            display: block;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
+    .input-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
 
-        .input-group input {
-            width: 100%;
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .input-group input,
+    .input-group textarea {
+        width: 100%;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
 
-        .btn-group button {
-            margin: 0 10px;
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
+    .btn-group button {
+        margin: 0 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+    }
 
-        .btn-group button.primary {
-            background-color: #4caf50;
-            color: white;
-            border: none;
-        }
+    .btn-group button.primary {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+    }
 
-        .btn-group button.danger {
-            background-color: #f44336;
-            color: white;
-            border: none;
-        }
+    .btn-group button.danger {
+        background-color: #f44336;
+        color: white;
+        border: none;
+    }
 
-        .output-textarea {
-            width: 100%;
-            height: 150px;
-            margin-top: 20px;
-            padding: 8px;
-            font-size: 16px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+    .output-textarea {
+        width: 100%;
+        height: 150px;
+        margin-bottom: 10px;
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>HTML to Markdown Converter</h1>
-
-        <div class="input-group">
-            <label for="userHtml">Enter HTML:</label>
-            <textarea id="userHtml" rows="10"></textarea>
+        <div class="input-container">
+            <div class="input-group">
+                <label for="userHtml">Enter HTML:</label>
+                <textarea id="userHtml" rows="10"></textarea>
+            </div>
+    
+            <div class="btn-group">
+                <button id="convertHtmlBtn" class="primary">Convert HTML to Markdown</button>
+            </div>
         </div>
-
-        <div class="input-group">
-            <label for="urlInput">Enter URL:</label>
-            <input type="text" id="urlInput" placeholder="Enter URL">
-        </div>
-
-        <div class="btn-group">
-            <button id="convertHtmlBtn" class="primary">Convert HTML to Markdown</button>
-            <button id="convertUrlBtn" class="primary">Convert URL to Markdown</button>
-        </div>
-
-        <div class="input-group">
-            <label for="repoOwnerInput">GitHub Repository Owner:</label>
-            <input type="text" id="repoOwnerInput" placeholder="Enter owner's username">
-        </div>
-
-        <div class="input-group">
-            <label for="repoNameInput">GitHub Repository Name:</label>
-            <input type="text" id="repoNameInput" placeholder="Enter repository name">
-        </div>
-
-        <div class="input-group">
-            <label for="filePathInput">File Path in Repository:</label>
-            <input type="text" id="filePathInput" placeholder="Enter file path in the repository">
-        </div>
-
-        <div class="input-group">
-            <label for="githubTokenInput">GitHub Token:</label>
-            <input type="text" id="githubTokenInput" placeholder="Enter GitHub personal access token">
-        </div>
-
-        <h2>Output:</h2>
-        <textarea id="outputTextarea" class="output-textarea" readonly></textarea>
-
-        <div class="btn-group">
-            <button id="postToGitHubBtn" class="primary">Post to GitHub</button>
-            <button id="clearButton" class="danger">Clear Output</button>
+    
+        <div class="output-container">
+            <h2>Output:</h2>
+            <textarea id="outputTextarea" class="output-textarea" readonly></textarea>
+    
+            <div class="input-group">
+                <label for="urlInput">Enter URL:</label>
+                <input type="text" id="urlInput" placeholder="Enter URL">
+            </div>
+    
+            <div class="btn-group">
+                <button id="convertUrlBtn" class="primary">Convert URL to Markdown</button>
+            </div>
+    
+            <div class="input-group">
+                <label for="repoOwnerInput">GitHub Repository Owner:</label>
+                <input type="text" id="repoOwnerInput" placeholder="Enter owner's username">
+            </div>
+    
+            <div class="input-group">
+                <label for="repoNameInput">GitHub Repository Name:</label>
+                <input type="text" id="repoNameInput" placeholder="Enter repository name">
+            </div>
+    
+            <div class="input-group">
+                <label for="filePathInput">File Path in Repository:</label>
+                <input type="text" id="filePathInput" placeholder="Enter file path in the repository">
+            </div>
+    
+            <div class="input-group">
+                <label for="githubTokenInput">GitHub Token:</label>
+                <input type="text" id="githubTokenInput" placeholder="Enter GitHub personal access token">
+            </div>
+    
+            <div class="btn-group">
+                <button id="postToGitHubBtn" class="primary">Post to GitHub</button>
+                <button id="clearButton" class="danger">Clear Output</button>
+            </div>
         </div>
     </div>
+    
 
     <script>
               document.getElementById("convertHtmlBtn").addEventListener("click", function() {

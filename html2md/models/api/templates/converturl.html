@@ -161,13 +161,25 @@
             <label for="urlInput">Enter URL:</label>
 	    <br/>
             <input type="text" id="urlInput" name="name" placeholder="Enter URL" >                      <br>
-            <input type="submit" class="btn" value="Convert">
+            <input type="submit" id="convertBtn" class="btn" value="Convert">
             <div id="result">
               <textarea id="outputTextarea">{{ result | safe }}</textarea>
             </div>
           </form>
         </div>
       </div>
+
+      <button id="postToGitHubBtn" class="button">Post to GitHub?</button>
+      <div class="github-inputs">
+        <form method="POST" action="/upload">
+          <input type="text" id="repoOwnerInput" placeholder="GitHub Repo Owner" required>
+          <input type="text" id="repoNameInput" placeholder="GitHub Repo Name" required>
+          <input type="text" id="filePathInput" placeholder="File Path in Repo" required>
+          <input type="text" id="githubTokenInput" placeholder="GitHub Token" required>
+	  <input type="submit" class="btn-primary" value="Post">
+      </div>
+    </div>
+  </div>
 </section>
 
 
@@ -207,7 +219,7 @@
 	<script src="../static/js/slides.min.js" type="text/javascript"></script>
 
 	<!-- Custom Scripts -->
-	<!-- <script src="js/custom.js" type="text/javascript"></script> -->
+	<script src="../static/js/converter.js" type="text/javascript"></script>
 
 </body>
 </html>

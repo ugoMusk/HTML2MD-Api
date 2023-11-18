@@ -62,6 +62,7 @@ body {
     background-color: #bb2c3d;
 }
 .github-inputs input {
+    display: None;
     margin-bottom: 10px;
     width: calc(100% - 20px);
     padding: 10px;
@@ -112,4 +113,7 @@ img {
     background-color: #235469;
     color: white;
     
+}
+#postToGitHubBtn {
+    display: None
 }

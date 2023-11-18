@@ -33,12 +33,12 @@ def convertHtml():
     """ 
     route method to parse html to markdown
     """
-    userUrl = request.form.get('name')
-    if userUrl:
-        res = downloadUrl(userUrl)
+    userHtml = request.form.get('userHtml')
+    if userHtml:
+        res = convertHtml2Markdown(userHtml)
     else:
         res = "Your converted Markdown will appear here"
-    return render_template('converthtml.html', userUrl=userUrl, result=res)
+    return render_template('converthtml.html', result=res)
     # return res
 
 @app.route("/convert", methods=['GET', 'POST'], strict_slashes=False)
@@ -46,14 +46,20 @@ def convertMain():
     """ 
     route method to parse html to markdown
     """
-    try:
-        with open("scrab.html", mode="r", encoding="utf-8") as htmlFile:
-            html = htmlFile.read()
-    except FileNotFoundError:
-        html = "<body>please provide valid html</body>"
 
-    res = convertHtml2Markdown(html)
-    
+    res = "<body> converted markdown appears here</body>"
+    if request.form.get('userUrl'):
+        userInput = request.form.get('userUrl')
+        try:
+            res = downloadUrl(userInput)
+        except Exception as e:
+            res = e
+    elif request.form.get('userHtml'):
+        userInput = request.form.get('userHtml')
+        try:
+            res = convertHtml2Markdown(userInput)
+        except Exception as e:
+            res = "Please provide valid html"
     return render_template('convert.html', result=res)
     # return res
 
@@ -94,7 +100,7 @@ def redirecRoute(url):
     return redirect(url)
 
 @app.route("/docs")
-def docs():
+def docsPage():
     """ docs page """
     return render_template("docs.html")
 

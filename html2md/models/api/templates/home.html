@@ -102,9 +102,9 @@
     <div class="left"><svg style="width:82px;height:24px"></svg><div class="left"><a href="#" title="Html2md Framework">HTML2MD</a></div></div>
     <div class="center">
       <ul class="menu">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Convert</a></li>
-        <li><a href="#">Docs</a></li>
+        <li><a href="{{ url_for('setCookieRoute') }}">Home</a></li>
+        <li><a href="{{ url_for('convertMain') }}">Convert</a></li>
+        <li><a href="{{ url_for('docsPage') }}">Docs</a></li>
         <li><a href="#"></a>Hire</li>
 	<li><a href="#"></a>About</li>
 	<li><a href="#"></a>Explore</li>
@@ -124,10 +124,10 @@
   <div class="content">
     <a href="#" class="logo"><svg width="37" height="30"><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#" alt="html2md"></use></svg></a>
     <ul class="mainMenu margin-top-3">
-      <li><a href="#">Home</a></li>
-      <li><a href="#">Convert</a></li>
+      <li><a href="{{ url_for('setCookieRoute') }}">Home</a></li>
+      <li><a href="{{ url_for('convertMain') }}">Convert</a></li>
       <li><a href="#">About Us</a></li>
-      <li><a href="#">Docs</a></li>
+      <li><a href="{{ url_for('docsPage') }}">Docs</a></li>
       <li><a href="#">Blog</a></li>
     </ul>
     <ul class="subMenu small opacity-8">

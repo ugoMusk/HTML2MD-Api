@@ -16,7 +16,7 @@ app = Flask(__name__)
 CORS(app)
 
 @app.route("/convert/url", methods=['GET', 'POST'], strict_slashes=False)
-def getMarkdown():
+def convertUrl():
     """ 
     route method to parse html to markdown
     """
@@ -25,11 +25,24 @@ def getMarkdown():
         res = downloadUrl(userUrl)
     else:
         res = "Your converted Markdown will appear here"
-    return render_template('convert.html', userUrl=userUrl, result=res)
+    return render_template('converturl.html', userUrl=userUrl, result=res)
     # return res
 
-@app.route("/convert", methods=['GET'], strict_slashes=False)
-def convertMarkdown():
+@app.route("/convert/html", methods=['GET', 'POST'], strict_slashes=False)
+def convertHtml():
+    """ 
+    route method to parse html to markdown
+    """
+    userUrl = request.form.get('name')
+    if userUrl:
+        res = downloadUrl(userUrl)
+    else:
+        res = "Your converted Markdown will appear here"
+    return render_template('converthtml.html', userUrl=userUrl, result=res)
+    # return res
+
+@app.route("/convert", methods=['GET', 'POST'], strict_slashes=False)
+def convertMain():
     """ 
     route method to parse html to markdown
     """
@@ -41,7 +54,7 @@ def convertMarkdown():
 
     res = convertHtml2Markdown(html)
     
-    return render_template('render_temp.html', result=res)
+    return render_template('convert.html', result=res)
     # return res
 
 
@@ -58,10 +71,11 @@ def downloadFile():
     except FileNotFoundError:
         sendFile = (f"{filePath} does not exists")
     return sendFile
+
 @app.route("/")
 def setCookieRoute():
     # set a cookie with key "name" and value "Alice"
-    return render_template("myr.html", cookies=cookies.setCookie())
+    return render_template("home.html", cookies=cookies.setCookie())
 
 @app.route("/getcookie")
 def getCookieRoute():
@@ -78,6 +92,20 @@ def redirecRoute(url):
     #Set a redirection path
     url = url_for(url)
     return redirect(url)
+
+@app.route("/docs")
+def docs():
+    """ docs page """
+    return render_template("docs.html")
+
+@app.route("/archive", methods=['POST'], strict_slashes=False)
+def archiveMarkdown():
+    """
+    perform update operation on database with 
+    converted markdown
+    """
+    return True
+
 
 if __name__ == "__main__":
     app.run()

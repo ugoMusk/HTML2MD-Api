@@ -1,168 +1,29 @@
-<<<<<<< HEAD
-<<<<<<< HEAD
+![Google](//ssl.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_74x24dp.png)
 
-=======
-{"payload":{"allShortcutsEnabled":false,"fileTree":{"html2md/models/storage":{"items":[{"name":"__init__.py","path":"html2md/models/storage/__init__.py","contentType":"file"},{"name":"cookies.py","path":"html2md/models/storage/cookies.py","contentType":"file"}],"totalCount":2},"html2md/models":{"items":[{"name":"api","path":"html2md/models/api","contentType":"directory"},{"name":"engine","path":"html2md/models/engine","contentType":"directory"},{"name":"proxyserver","path":"html2md/models/proxyserver","contentType":"directory"},{"name":"storage","path":"html2md/models/storage","contentType":"directory"},{"name":"views","path":"html2md/models/views","contentType":"directory"},{"name":"__init__.py","path":"html2md/models/__init__.py","contentType":"file"}],"totalCount":6},"html2md":{"items":[{"name":"models","path":"html2md/models","contentType":"directory"},{"name":"tests","path":"html2md/tests","contentType":"directory"},{"name":".travis.yml","path":"html2md/.travis.yml","contentType":"file"},{"name":"__init__.py","path":"html2md/__init__.py","contentType":"file"},{"name":"deploy.sh","path":"html2md/deploy.sh","contentType":"file"},{"name":"requirements.txt","path":"html2md/requirements.txt","contentType":"file"},{"name":"testsql.py","path":"html2md/testsql.py","contentType":"file"}],"totalCount":7},"":{"items":[{"name":"html2md","path":"html2md","contentType":"directory"},{"name":".gitignore","path":".gitignore","contentType":"file"},{"name":".travis.yml","path":".travis.yml","contentType":"file"},{"name":"Dockerfile","path":"Dockerfile","contentType":"file"},{"name":"LICENSE","path":"LICENSE","contentType":"file"},{"name":"README.md","path":"README.md","contentType":"file"},{"name":"init.sql","path":"init.sql","contentType":"file"}],"totalCount":7}},"fileTreeProcessingTime":6.36285,"foldersToFetch":[],"reducedMotionEnabled":null,"repo":{"id":700998234,"defaultBranch":"main","name":"HTML2MD-
-Api","ownerLogin":"ugoMusk","currentUserCanPush":false,"isFork":false,"isEmpty":false,"createdAt":"2023-10-05T17:46:12.000Z","ownerAvatar":"https://avatars.githubusercontent.com/u/34632702?v=4","public":true,"private":false,"isOrgOwned":false},"symbolsExpanded":false,"treeExpanded":true,"refInfo":{"name":"main","listCacheKey":"v0:1698513720.0","canEdit":false,"refType":"branch","currentOid":"7530542fb28337b3991ef742e67cde2c9cfa4069"},"path":"html2md/models/storage/cookies.py","currentUser":null,"blob":{"rawLines":["#
-import modules","import os","import sys","modelPath =
-os.path.abspath(\"../../models\")","sys.path.append(modelPath)","from
-proxyserver import access","from flask import Flask, request,
-make_response","from sqlalchemy import create_engine, Column, String,
-DateTime, Integer, LargeBinary, Table, MetaData, select","from
-sqlalchemy.ext.declarative import declarative_base","from sqlalchemy.orm
-import sessionmaker","from sqlalchemy.exc import PendingRollbackError,
-IntegrityError","from datetime import datetime, timedelta","from uuid import
-uuid4","","dbHost = os.environ.get(\"MYSQL_HOST\")","dbUser =
-os.environ.get(\"MYSQL_USER\")","dbPass =
-os.environ.get(\"MYSQL_PASSWORD\")","","# create app and configure MySQL","app
-= Flask(__name__)","app.config[\"MYSQL_HOST\"] =
-dbHost","app.config[\"MYSQL_USER\"] = dbUser","app.config[\"MYSQL_PASSWORD\"]
-= dbPass","app.config[\"MYSQL_DB\"] = \"html2md\"","","# create engine and
-base class","engine =
-create_engine(f\"mysql://{app.config['MYSQL_USER']}:{app.config['MYSQL_PASSWORD']}@{app.config['MYSQL_HOST']}/{app.config['MYSQL_DB']}\")","Base
-= declarative_base()","","# define Cookie class","class Users(Base):","
-__tablename__ = \"users\""," Id = Column(Integer, primary_key=True,
-autoincrement=True)"," userId = Column(String(255), nullable=True)","
-cookieValue = Column(String(255), unique=True)"," cookieExpires =
-Column(DateTime)"," # firstName = Column(String(128), nullable=True)"," #
-lastName = Column(String(128), nullable=True)"," # userName =
-Column(String(128), nullable=True)"," # userPass = Column(String(128),
-nullable=True)"," # visitCounts = Column(Integer, nullable=True)"," # apiKey =
-Column(String(255), nullable=True)"," # userFile = Column(LargeBinary,
-nullable=True)",""," def __init__(self, *args):"," "," self.userId =
-args[0]"," self.cookieValue = args[1]"," self.cookieExpires = args[2]"," #
-self.firstName = args[3] or \"\""," # self.lastName = args[4] or \"\""," #
-self.userName = args[5] or \"\""," # self.userPass = args[6] or \"\""," #
-self.visitCounts = args[7] or 0"," # self.apiKey = args[8] or \"\""," #
-self.userFile = args[9] or \"\""," ","","# create table for
-cookies","Base.metadata.create_all(engine)","","metadata = MetaData()","#
-create session","Session = sessionmaker(bind=engine)","session =
-Session()","","cookieValue = access.getUserIp()","cookieKey =
-\"userId\"","users = Table(\"users\", metadata,"," Column(\"userId\",
-String(255)),"," Column(\"cookieValue\", String(255), unique=True),","
-Column(\"cookieExpires\", DateTime)"," )","","# define function to generate
-cookie ID","def generateCookieId():"," return str(uuid4())","","","","# define
-function to set cookie","def setCookie(key=cookieKey, value=cookieValue):"," #
-create response object",""," resp = make_response(\"Setting the cookie\")"," #
-generate cookie ID"," cookieId = generateCookieId()"," # set cookie in browser
-with ID as value"," resp.set_cookie(key, cookieId)"," # get current time and
-add one day for expiration"," now = datetime.now()"," expires = now +
-timedelta(days=1)"," try:",""," # result =
-session.query(users.name).filter(users.age > 20).all()"," # store cookie data
-in database with ID, value, and expiration"," cookie = Users(cookieId, value,
-expires)"," session.add(cookie)"," session.commit()"," except
-IntegrityError:"," session.rollback()"," return resp","","# define function to
-get cookie","def getCookie(key):"," # get cookie ID from browser"," cookieId =
-request.cookies.get(key)"," if not cookieId:"," return \"No cookie found\"","
-# get cookie value and expiration from database"," cookie =
-session.query(Users).filter_by(cookieId=cookieId).first()"," if not cookie:","
-return \"No cookie found\""," value = cookie.cookieValue"," expires =
-cookie.cookieExpires"," # check if cookie is expired"," now =
-datetime.now()"," if now > expires:"," return \"Cookie expired\""," return
-f\"Cookie value is {value}\"","","# define function to delete cookie","def
-deleteCookie(key):"," # get cookie ID from browser"," cookieId =
-request.cookies.get(key)"," if not cookieId:"," return \"No cookie found\"","
-# create response object"," resp = make_response(\"Deleting the cookie\")"," #
-delete cookie from browser"," resp.deleteCookie(key)"," # delete cookie from
-database"," session.query(Users).filter_by(cookieId=cookieId).delete()","
-session.commit()"," return resp","","if __name__ == \"__main__\":","
-app.run()"],"stylingDirectives":[[{"start":0,"end":16,"cssClass":"pl-c"}],[{"start":0,"end":6,"cssClass":"pl-k"},{"start":7,"end":9,"cssClass":"pl-s1"}],[{"start":0,"end":6,"cssClass":"pl-k"},{"start":7,"end":10,"cssClass":"pl-s1"}],[{"start":0,"end":9,"cssClass":"pl-s1"},{"start":10,"end":11,"cssClass":"pl-c1"},{"start":12,"end":14,"cssClass":"pl-s1"},{"start":15,"end":19,"cssClass":"pl-s1"},{"start":20,"end":27,"cssClass":"pl-
-en"},{"start":28,"end":42,"cssClass":"pl-s"}],[{"start":0,"end":3,"cssClass":"pl-s1"},{"start":4,"end":8,"cssClass":"pl-s1"},{"start":9,"end":15,"cssClass":"pl-
-en"},{"start":16,"end":25,"cssClass":"pl-s1"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":16,"cssClass":"pl-s1"},{"start":17,"end":23,"cssClass":"pl-k"},{"start":24,"end":30,"cssClass":"pl-s1"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":10,"cssClass":"pl-s1"},{"start":11,"end":17,"cssClass":"pl-k"},{"start":18,"end":23,"cssClass":"pl-v"},{"start":25,"end":32,"cssClass":"pl-s1"},{"start":34,"end":47,"cssClass":"pl-s1"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":15,"cssClass":"pl-s1"},{"start":16,"end":22,"cssClass":"pl-k"},{"start":23,"end":36,"cssClass":"pl-s1"},{"start":38,"end":44,"cssClass":"pl-v"},{"start":46,"end":52,"cssClass":"pl-v"},{"start":54,"end":62,"cssClass":"pl-v"},{"start":64,"end":71,"cssClass":"pl-v"},{"start":73,"end":84,"cssClass":"pl-v"},{"start":86,"end":91,"cssClass":"pl-v"},{"start":93,"end":101,"cssClass":"pl-v"},{"start":103,"end":109,"cssClass":"pl-s1"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":15,"cssClass":"pl-s1"},{"start":16,"end":19,"cssClass":"pl-s1"},{"start":20,"end":31,"cssClass":"pl-s1"},{"start":32,"end":38,"cssClass":"pl-k"},{"start":39,"end":55,"cssClass":"pl-s1"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":15,"cssClass":"pl-s1"},{"start":16,"end":19,"cssClass":"pl-s1"},{"start":20,"end":26,"cssClass":"pl-k"},{"start":27,"end":39,"cssClass":"pl-s1"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":15,"cssClass":"pl-s1"},{"start":16,"end":19,"cssClass":"pl-s1"},{"start":20,"end":26,"cssClass":"pl-k"},{"start":27,"end":47,"cssClass":"pl-v"},{"start":49,"end":63,"cssClass":"pl-v"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":13,"cssClass":"pl-s1"},{"start":14,"end":20,"cssClass":"pl-k"},{"start":21,"end":29,"cssClass":"pl-s1"},{"start":31,"end":40,"cssClass":"pl-s1"}],[{"start":0,"end":4,"cssClass":"pl-k"},{"start":5,"end":9,"cssClass":"pl-s1"},{"start":10,"end":16,"cssClass":"pl-k"},{"start":17,"end":22,"cssClass":"pl-s1"}],[],[{"start":0,"end":6,"cssClass":"pl-s1"},{"start":7,"end":8,"cssClass":"pl-c1"},{"start":9,"end":11,"cssClass":"pl-s1"},{"start":12,"end":19,"cssClass":"pl-s1"},{"start":20,"end":23,"cssClass":"pl-
-en"},{"start":24,"end":36,"cssClass":"pl-s"}],[{"start":0,"end":6,"cssClass":"pl-s1"},{"start":7,"end":8,"cssClass":"pl-c1"},{"start":9,"end":11,"cssClass":"pl-s1"},{"start":12,"end":19,"cssClass":"pl-s1"},{"start":20,"end":23,"cssClass":"pl-
-en"},{"start":24,"end":36,"cssClass":"pl-s"}],[{"start":0,"end":6,"cssClass":"pl-s1"},{"start":7,"end":8,"cssClass":"pl-c1"},{"start":9,"end":11,"cssClass":"pl-s1"},{"start":12,"end":19,"cssClass":"pl-s1"},{"start":20,"end":23,"cssClass":"pl-
-en"},{"start":24,"end":40,"cssClass":"pl-s"}],[],[{"start":0,"end":32,"cssClass":"pl-c"}],[{"start":0,"end":3,"cssClass":"pl-s1"},{"start":4,"end":5,"cssClass":"pl-c1"},{"start":6,"end":11,"cssClass":"pl-v"},{"start":12,"end":20,"cssClass":"pl-s1"}],[{"start":0,"end":3,"cssClass":"pl-s1"},{"start":4,"end":10,"cssClass":"pl-s1"},{"start":11,"end":23,"cssClass":"pl-s"},{"start":25,"end":26,"cssClass":"pl-c1"},{"start":27,"end":33,"cssClass":"pl-s1"}],[{"start":0,"end":3,"cssClass":"pl-s1"},{"start":4,"end":10,"cssClass":"pl-s1"},{"start":11,"end":23,"cssClass":"pl-s"},{"start":25,"end":26,"cssClass":"pl-c1"},{"start":27,"end":33,"cssClass":"pl-s1"}],[{"start":0,"end":3,"cssClass":"pl-s1"},{"start":4,"end":10,"cssClass":"pl-s1"},{"start":11,"end":27,"cssClass":"pl-s"},{"start":29,"end":30,"cssClass":"pl-c1"},{"start":31,"end":37,"cssClass":"pl-s1"}],[{"start":0,"end":3,"cssClass":"pl-s1"},{"start":4,"end":10,"cssClass":"pl-s1"},{"start":11,"end":21,"cssClass":"pl-s"},{"start":23,"end":24,"cssClass":"pl-c1"},{"start":25,"end":34,"cssClass":"pl-s"}],[],[{"start":0,"end":30,"cssClass":"pl-c"}],[{"start":0,"end":6,"cssClass":"pl-s1"},{"start":7,"end":8,"cssClass":"pl-c1"},{"start":9,"end":22,"cssClass":"pl-
-en"},{"start":23,"end":143,"cssClass":"pl-s"},{"start":33,"end":59,"cssClass":"pl-s1"},{"start":33,"end":34,"cssClass":"pl-
-kos"},{"start":34,"end":37,"cssClass":"pl-s1"},{"start":38,"end":44,"cssClass":"pl-s1"},{"start":45,"end":57,"cssClass":"pl-s"},{"start":58,"end":59,"cssClass":"pl-
-kos"},{"start":60,"end":90,"cssClass":"pl-s1"},{"start":60,"end":61,"cssClass":"pl-
-kos"},{"start":61,"end":64,"cssClass":"pl-s1"},{"start":65,"end":71,"cssClass":"pl-s1"},{"start":72,"end":88,"cssClass":"pl-s"},{"start":89,"end":90,"cssClass":"pl-
-kos"},{"start":91,"end":117,"cssClass":"pl-s1"},{"start":91,"end":92,"cssClass":"pl-
-kos"},{"start":92,"end":95,"cssClass":"pl-s1"},{"start":96,"end":102,"cssClass":"pl-s1"},{"start":103,"end":115,"cssClass":"pl-s"},{"start":116,"end":117,"cssClass":"pl-
-kos"},{"start":118,"end":142,"cssClass":"pl-s1"},{"start":118,"end":119,"cssClass":"pl-
-kos"},{"start":119,"end":122,"cssClass":"pl-s1"},{"start":123,"end":129,"cssClass":"pl-s1"},{"start":130,"end":140,"cssClass":"pl-s"},{"start":141,"end":142,"cssClass":"pl-
-kos"}],[{"start":0,"end":4,"cssClass":"pl-v"},{"start":5,"end":6,"cssClass":"pl-c1"},{"start":7,"end":23,"cssClass":"pl-
-en"}],[],[{"start":0,"end":21,"cssClass":"pl-c"}],[{"start":0,"end":5,"cssClass":"pl-k"},{"start":6,"end":11,"cssClass":"pl-v"},{"start":12,"end":16,"cssClass":"pl-v"}],[{"start":4,"end":17,"cssClass":"pl-s1"},{"start":18,"end":19,"cssClass":"pl-c1"},{"start":20,"end":27,"cssClass":"pl-s"}],[{"start":4,"end":6,"cssClass":"pl-v"},{"start":7,"end":8,"cssClass":"pl-c1"},{"start":9,"end":15,"cssClass":"pl-v"},{"start":16,"end":23,"cssClass":"pl-v"},{"start":25,"end":36,"cssClass":"pl-s1"},{"start":36,"end":37,"cssClass":"pl-c1"},{"start":37,"end":41,"cssClass":"pl-c1"},{"start":43,"end":56,"cssClass":"pl-s1"},{"start":56,"end":57,"cssClass":"pl-c1"},{"start":57,"end":61,"cssClass":"pl-c1"}],[{"start":4,"end":10,"cssClass":"pl-s1"},{"start":11,"end":12,"cssClass":"pl-c1"},{"start":13,"end":19,"cssClass":"pl-v"},{"start":20,"end":26,"cssClass":"pl-v"},{"start":27,"end":30,"cssClass":"pl-c1"},{"start":33,"end":41,"cssClass":"pl-s1"},{"start":41,"end":42,"cssClass":"pl-c1"},{"start":42,"end":46,"cssClass":"pl-c1"}],[{"start":4,"end":15,"cssClass":"pl-s1"},{"start":16,"end":17,"cssClass":"pl-c1"},{"start":18,"end":24,"cssClass":"pl-v"},{"start":25,"end":31,"cssClass":"pl-v"},{"start":32,"end":35,"cssClass":"pl-c1"},{"start":38,"end":44,"cssClass":"pl-s1"},{"start":44,"end":45,"cssClass":"pl-c1"},{"start":45,"end":49,"cssClass":"pl-c1"}],[{"start":4,"end":17,"cssClass":"pl-s1"},{"start":18,"end":19,"cssClass":"pl-c1"},{"start":20,"end":26,"cssClass":"pl-v"},{"start":27,"end":35,"cssClass":"pl-v"}],[{"start":4,"end":52,"cssClass":"pl-c"}],[{"start":4,"end":51,"cssClass":"pl-c"}],[{"start":4,"end":51,"cssClass":"pl-c"}],[{"start":4,"end":51,"cssClass":"pl-c"}],[{"start":4,"end":50,"cssClass":"pl-c"}],[{"start":4,"end":49,"cssClass":"pl-c"}],[{"start":4,"end":51,"cssClass":"pl-c"}],[],[{"start":4,"end":7,"cssClass":"pl-k"},{"start":8,"end":16,"cssClass":"pl-
-en"},{"start":17,"end":21,"cssClass":"pl-s1"},{"start":23,"end":24,"cssClass":"pl-c1"},{"start":24,"end":28,"cssClass":"pl-s1"}],[],[{"start":8,"end":12,"cssClass":"pl-s1"},{"start":13,"end":19,"cssClass":"pl-s1"},{"start":20,"end":21,"cssClass":"pl-c1"},{"start":22,"end":26,"cssClass":"pl-s1"},{"start":27,"end":28,"cssClass":"pl-c1"}],[{"start":8,"end":12,"cssClass":"pl-s1"},{"start":13,"end":24,"cssClass":"pl-s1"},{"start":25,"end":26,"cssClass":"pl-c1"},{"start":27,"end":31,"cssClass":"pl-s1"},{"start":32,"end":33,"cssClass":"pl-c1"}],[{"start":8,"end":12,"cssClass":"pl-s1"},{"start":13,"end":26,"cssClass":"pl-s1"},{"start":27,"end":28,"cssClass":"pl-c1"},{"start":29,"end":33,"cssClass":"pl-s1"},{"start":34,"end":35,"cssClass":"pl-c1"}],[{"start":8,"end":40,"cssClass":"pl-c"}],[{"start":8,"end":39,"cssClass":"pl-c"}],[{"start":8,"end":39,"cssClass":"pl-c"}],[{"start":8,"end":39,"cssClass":"pl-c"}],[{"start":8,"end":41,"cssClass":"pl-c"}],[{"start":8,"end":37,"cssClass":"pl-c"}],[{"start":8,"end":39,"cssClass":"pl-c"}],[],[],[{"start":0,"end":26,"cssClass":"pl-c"}],[{"start":0,"end":4,"cssClass":"pl-v"},{"start":5,"end":13,"cssClass":"pl-s1"},{"start":14,"end":24,"cssClass":"pl-
-en"},{"start":25,"end":31,"cssClass":"pl-s1"}],[],[{"start":0,"end":8,"cssClass":"pl-s1"},{"start":9,"end":10,"cssClass":"pl-c1"},{"start":11,"end":19,"cssClass":"pl-v"}],[{"start":0,"end":16,"cssClass":"pl-c"}],[{"start":0,"end":7,"cssClass":"pl-v"},{"start":8,"end":9,"cssClass":"pl-c1"},{"start":10,"end":22,"cssClass":"pl-
-en"},{"start":23,"end":27,"cssClass":"pl-s1"},{"start":27,"end":28,"cssClass":"pl-c1"},{"start":28,"end":34,"cssClass":"pl-s1"}],[{"start":0,"end":7,"cssClass":"pl-s1"},{"start":8,"end":9,"cssClass":"pl-c1"},{"start":10,"end":17,"cssClass":"pl-v"}],[],[{"start":0,"end":11,"cssClass":"pl-s1"},{"start":12,"end":13,"cssClass":"pl-c1"},{"start":14,"end":20,"cssClass":"pl-s1"},{"start":21,"end":30,"cssClass":"pl-
-en"}],[{"start":0,"end":9,"cssClass":"pl-s1"},{"start":10,"end":11,"cssClass":"pl-c1"},{"start":12,"end":20,"cssClass":"pl-s"}],[{"start":0,"end":5,"cssClass":"pl-s1"},{"start":6,"end":7,"cssClass":"pl-c1"},{"start":8,"end":13,"cssClass":"pl-v"},{"start":14,"end":21,"cssClass":"pl-s"},{"start":23,"end":31,"cssClass":"pl-s1"}],[{"start":8,"end":14,"cssClass":"pl-v"},{"start":15,"end":23,"cssClass":"pl-s"},{"start":25,"end":31,"cssClass":"pl-v"},{"start":32,"end":35,"cssClass":"pl-c1"}],[{"start":8,"end":14,"cssClass":"pl-v"},{"start":15,"end":28,"cssClass":"pl-s"},{"start":30,"end":36,"cssClass":"pl-v"},{"start":37,"end":40,"cssClass":"pl-c1"},{"start":43,"end":49,"cssClass":"pl-s1"},{"start":49,"end":50,"cssClass":"pl-c1"},{"start":50,"end":54,"cssClass":"pl-c1"}],[{"start":8,"end":14,"cssClass":"pl-v"},{"start":15,"end":30,"cssClass":"pl-s"},{"start":32,"end":40,"cssClass":"pl-v"}],[],[],[{"start":0,"end":39,"cssClass":"pl-c"}],[{"start":0,"end":3,"cssClass":"pl-k"},{"start":4,"end":20,"cssClass":"pl-
-en"}],[{"start":4,"end":10,"cssClass":"pl-k"},{"start":11,"end":14,"cssClass":"pl-
-en"},{"start":15,"end":20,"cssClass":"pl-
-en"}],[],[],[],[{"start":0,"end":31,"cssClass":"pl-c"}],[{"start":0,"end":3,"cssClass":"pl-k"},{"start":4,"end":13,"cssClass":"pl-
-en"},{"start":14,"end":17,"cssClass":"pl-s1"},{"start":17,"end":18,"cssClass":"pl-c1"},{"start":18,"end":27,"cssClass":"pl-s1"},{"start":29,"end":34,"cssClass":"pl-s1"},{"start":34,"end":35,"cssClass":"pl-c1"},{"start":35,"end":46,"cssClass":"pl-s1"}],[{"start":4,"end":28,"cssClass":"pl-c"}],[],[{"start":4,"end":8,"cssClass":"pl-s1"},{"start":9,"end":10,"cssClass":"pl-c1"},{"start":11,"end":24,"cssClass":"pl-
-en"},{"start":25,"end":45,"cssClass":"pl-s"}],[{"start":4,"end":24,"cssClass":"pl-c"}],[{"start":4,"end":12,"cssClass":"pl-s1"},{"start":13,"end":14,"cssClass":"pl-c1"},{"start":15,"end":31,"cssClass":"pl-
-en"}],[{"start":4,"end":44,"cssClass":"pl-c"}],[{"start":4,"end":8,"cssClass":"pl-s1"},{"start":9,"end":19,"cssClass":"pl-
-en"},{"start":20,"end":23,"cssClass":"pl-s1"},{"start":25,"end":33,"cssClass":"pl-s1"}],[{"start":4,"end":53,"cssClass":"pl-c"}],[{"start":4,"end":7,"cssClass":"pl-s1"},{"start":8,"end":9,"cssClass":"pl-c1"},{"start":10,"end":18,"cssClass":"pl-s1"},{"start":19,"end":22,"cssClass":"pl-
-en"}],[{"start":4,"end":11,"cssClass":"pl-s1"},{"start":12,"end":13,"cssClass":"pl-c1"},{"start":14,"end":17,"cssClass":"pl-s1"},{"start":18,"end":19,"cssClass":"pl-c1"},{"start":20,"end":29,"cssClass":"pl-
-en"},{"start":30,"end":34,"cssClass":"pl-s1"},{"start":34,"end":35,"cssClass":"pl-c1"},{"start":35,"end":36,"cssClass":"pl-c1"}],[{"start":4,"end":7,"cssClass":"pl-k"}],[],[{"start":8,"end":73,"cssClass":"pl-c"}],[{"start":8,"end":70,"cssClass":"pl-c"}],[{"start":8,"end":14,"cssClass":"pl-s1"},{"start":15,"end":16,"cssClass":"pl-c1"},{"start":17,"end":22,"cssClass":"pl-v"},{"start":23,"end":31,"cssClass":"pl-s1"},{"start":33,"end":38,"cssClass":"pl-s1"},{"start":40,"end":47,"cssClass":"pl-s1"}],[{"start":8,"end":15,"cssClass":"pl-s1"},{"start":16,"end":19,"cssClass":"pl-
-en"},{"start":20,"end":26,"cssClass":"pl-s1"}],[{"start":8,"end":15,"cssClass":"pl-s1"},{"start":16,"end":22,"cssClass":"pl-
-en"}],[{"start":4,"end":10,"cssClass":"pl-k"},{"start":11,"end":25,"cssClass":"pl-v"}],[{"start":8,"end":15,"cssClass":"pl-s1"},{"start":16,"end":24,"cssClass":"pl-
-en"}],[{"start":4,"end":10,"cssClass":"pl-k"},{"start":11,"end":15,"cssClass":"pl-s1"}],[],[{"start":0,"end":31,"cssClass":"pl-c"}],[{"start":0,"end":3,"cssClass":"pl-k"},{"start":4,"end":13,"cssClass":"pl-
-en"},{"start":14,"end":17,"cssClass":"pl-s1"}],[{"start":4,"end":32,"cssClass":"pl-c"}],[{"start":4,"end":12,"cssClass":"pl-s1"},{"start":13,"end":14,"cssClass":"pl-c1"},{"start":15,"end":22,"cssClass":"pl-s1"},{"start":23,"end":30,"cssClass":"pl-s1"},{"start":31,"end":34,"cssClass":"pl-
-en"},{"start":35,"end":38,"cssClass":"pl-s1"}],[{"start":4,"end":6,"cssClass":"pl-k"},{"start":7,"end":10,"cssClass":"pl-c1"},{"start":11,"end":19,"cssClass":"pl-s1"}],[{"start":8,"end":14,"cssClass":"pl-k"},{"start":15,"end":32,"cssClass":"pl-s"}],[{"start":4,"end":51,"cssClass":"pl-c"}],[{"start":4,"end":10,"cssClass":"pl-s1"},{"start":11,"end":12,"cssClass":"pl-c1"},{"start":13,"end":20,"cssClass":"pl-s1"},{"start":21,"end":26,"cssClass":"pl-
-en"},{"start":27,"end":32,"cssClass":"pl-v"},{"start":34,"end":43,"cssClass":"pl-
-en"},{"start":44,"end":52,"cssClass":"pl-s1"},{"start":52,"end":53,"cssClass":"pl-c1"},{"start":53,"end":61,"cssClass":"pl-s1"},{"start":63,"end":68,"cssClass":"pl-
-en"}],[{"start":4,"end":6,"cssClass":"pl-k"},{"start":7,"end":10,"cssClass":"pl-c1"},{"start":11,"end":17,"cssClass":"pl-s1"}],[{"start":8,"end":14,"cssClass":"pl-k"},{"start":15,"end":32,"cssClass":"pl-s"}],[{"start":4,"end":9,"cssClass":"pl-s1"},{"start":10,"end":11,"cssClass":"pl-c1"},{"start":12,"end":18,"cssClass":"pl-s1"},{"start":19,"end":30,"cssClass":"pl-s1"}],[{"start":4,"end":11,"cssClass":"pl-s1"},{"start":12,"end":13,"cssClass":"pl-c1"},{"start":14,"end":20,"cssClass":"pl-s1"},{"start":21,"end":34,"cssClass":"pl-s1"}],[{"start":4,"end":32,"cssClass":"pl-c"}],[{"start":4,"end":7,"cssClass":"pl-s1"},{"start":8,"end":9,"cssClass":"pl-c1"},{"start":10,"end":18,"cssClass":"pl-s1"},{"start":19,"end":22,"cssClass":"pl-
-en"}],[{"start":4,"end":6,"cssClass":"pl-k"},{"start":7,"end":10,"cssClass":"pl-s1"},{"start":11,"end":12,"cssClass":"pl-c1"},{"start":13,"end":20,"cssClass":"pl-s1"}],[{"start":8,"end":14,"cssClass":"pl-k"},{"start":15,"end":31,"cssClass":"pl-s"}],[{"start":4,"end":10,"cssClass":"pl-k"},{"start":11,"end":37,"cssClass":"pl-s"},{"start":29,"end":36,"cssClass":"pl-s1"},{"start":29,"end":30,"cssClass":"pl-
-kos"},{"start":30,"end":35,"cssClass":"pl-s1"},{"start":35,"end":36,"cssClass":"pl-
-kos"}],[],[{"start":0,"end":34,"cssClass":"pl-c"}],[{"start":0,"end":3,"cssClass":"pl-k"},{"start":4,"end":16,"cssClass":"pl-
-en"},{"start":17,"end":20,"cssClass":"pl-s1"}],[{"start":4,"end":32,"cssClass":"pl-c"}],[{"start":4,"end":12,"cssClass":"pl-s1"},{"start":13,"end":14,"cssClass":"pl-c1"},{"start":15,"end":22,"cssClass":"pl-s1"},{"start":23,"end":30,"cssClass":"pl-s1"},{"start":31,"end":34,"cssClass":"pl-
-en"},{"start":35,"end":38,"cssClass":"pl-s1"}],[{"start":4,"end":6,"cssClass":"pl-k"},{"start":7,"end":10,"cssClass":"pl-c1"},{"start":11,"end":19,"cssClass":"pl-s1"}],[{"start":8,"end":14,"cssClass":"pl-k"},{"start":15,"end":32,"cssClass":"pl-s"}],[{"start":4,"end":28,"cssClass":"pl-c"}],[{"start":4,"end":8,"cssClass":"pl-s1"},{"start":9,"end":10,"cssClass":"pl-c1"},{"start":11,"end":24,"cssClass":"pl-
-en"},{"start":25,"end":46,"cssClass":"pl-s"}],[{"start":4,"end":32,"cssClass":"pl-c"}],[{"start":4,"end":8,"cssClass":"pl-s1"},{"start":9,"end":21,"cssClass":"pl-
-en"},{"start":22,"end":25,"cssClass":"pl-s1"}],[{"start":4,"end":33,"cssClass":"pl-c"}],[{"start":4,"end":11,"cssClass":"pl-s1"},{"start":12,"end":17,"cssClass":"pl-
-en"},{"start":18,"end":23,"cssClass":"pl-v"},{"start":25,"end":34,"cssClass":"pl-
-en"},{"start":35,"end":43,"cssClass":"pl-s1"},{"start":43,"end":44,"cssClass":"pl-c1"},{"start":44,"end":52,"cssClass":"pl-s1"},{"start":54,"end":60,"cssClass":"pl-
-en"}],[{"start":4,"end":11,"cssClass":"pl-s1"},{"start":12,"end":18,"cssClass":"pl-
-en"}],[{"start":4,"end":10,"cssClass":"pl-k"},{"start":11,"end":15,"cssClass":"pl-s1"}],[],[{"start":0,"end":2,"cssClass":"pl-k"},{"start":3,"end":11,"cssClass":"pl-s1"},{"start":12,"end":14,"cssClass":"pl-c1"},{"start":15,"end":25,"cssClass":"pl-s"}],[{"start":4,"end":7,"cssClass":"pl-s1"},{"start":8,"end":11,"cssClass":"pl-
-en"}]],"csv":null,"csvError":null,"dependabotInfo":{"showConfigurationBanner":false,"configFilePath":null,"networkDependabotPath":"/ugoMusk/HTML2MD-
-Api/network/updates","dismissConfigurationNoticePath":"/settings/dismiss-
-notice/dependabot_configuration_notice","configurationNoticeDismissed":null,"repoAlertsPath":"/ugoMusk/HTML2MD-
-Api/security/dependabot","repoSecurityAndAnalysisPath":"/ugoMusk/HTML2MD-
-Api/settings/security_analysis","repoOwnerIsOrg":false,"currentUserCanAdminRepo":false},"displayName":"cookies.py","displayUrl":"https://github.com/ugoMusk/HTML2MD-
-Api/blob/main/html2md/models/storage/cookies.py?raw=true","headerInfo":{"blobSize":"4.3
-KB","deleteInfo":{"deleteTooltip":"You must be signed in to make or propose
-changes"},"editInfo":{"editTooltip":"You must be signed in to make or propose
-changes"},"ghDesktopPath":"https://desktop.github.com","gitLfsPath":null,"onBranch":true,"shortPath":"30e10fe","siteNavLoginPath":"/login?return_to=https%3A%2F%2Fgithub.com%2FugoMusk%2FHTML2MD-
-Api%2Fblob%2Fmain%2Fhtml2md%2Fmodels%2Fstorage%2Fcookies.py","isCSV":false,"isRichtext":false,"toc":null,"lineInfo":{"truncatedLoc":"138","truncatedSloc":"119"},"mode":"file"},"image":false,"isCodeownersFile":null,"isPlain":false,"isValidLegacyIssueTemplate":false,"issueTemplateHelpUrl":"https://docs.github.com/articles/about-
-issue-and-pull-request-
-templates","issueTemplate":null,"discussionTemplate":null,"language":"Python","languageID":303,"large":false,"loggedIn":false,"newDiscussionPath":"/ugoMusk/HTML2MD-
-Api/discussions/new","newIssuePath":"/ugoMusk/HTML2MD-
-Api/issues/new","planSupportInfo":{"repoIsFork":null,"repoOwnedByCurrentUser":null,"requestFullPath":"/ugoMusk/HTML2MD-
-Api/blob/main/html2md/models/storage/cookies.py","showFreeOrgGatedFeatureMessage":null,"showPlanSupportBanner":null,"upgradeDataAttributes":null,"upgradePath":null},"publishBannersInfo":{"dismissActionNoticePath":"/settings/dismiss-
-notice/publish_action_from_dockerfile","dismissStackNoticePath":"/settings/dismiss-
-notice/publish_stack_from_file","releasePath":"/ugoMusk/HTML2MD-
-Api/releases/new?marketplace=true","showPublishActionBanner":false,"showPublishStackBanner":false},"rawBlobUrl":"https://github.com/ugoMusk/HTML2MD-
-Api/raw/main/html2md/models/storage/cookies.py","renderImageOrRaw":false,"richText":null,"renderedFileInfo":null,"shortPath":null,"tabSize":8,"topBannersInfo":{"overridingGlobalFundingFile":false,"globalPreferredFundingPath":null,"repoOwner":"ugoMusk","repoName":"HTML2MD-
-Api","showInvalidCitationWarning":false,"citationHelpUrl":"https://docs.github.com/en/github/creating-
-cloning-and-archiving-repositories/creating-a-repository-on-github/about-
-citation-
-files","showDependabotConfigurationBanner":false,"actionsOnboardingTip":null},"truncated":false,"viewable":true,"workflowRedirectUrl":null,"symbols":{"timedOut":false,"notAnalyzed":false,"symbols":[{"name":"modelPath","kind":"constant","identStart":38,"identEnd":47,"extentStart":38,"extentEnd":81,"fullyQualifiedName":"modelPath","identUtf16":{"start":{"lineNumber":3,"utf16Col":0},"end":{"lineNumber":3,"utf16Col":9}},"extentUtf16":{"start":{"lineNumber":3,"utf16Col":0},"end":{"lineNumber":3,"utf16Col":43}}},{"name":"dbHost","kind":"constant","identStart":523,"identEnd":529,"extentStart":523,"extentEnd":560,"fullyQualifiedName":"dbHost","identUtf16":{"start":{"lineNumber":14,"utf16Col":0},"end":{"lineNumber":14,"utf16Col":6}},"extentUtf16":{"start":{"lineNumber":14,"utf16Col":0},"end":{"lineNumber":14,"utf16Col":37}}},{"name":"dbUser","kind":"constant","identStart":561,"identEnd":567,"extentStart":561,"extentEnd":598,"fullyQualifiedName":"dbUser","identUtf16":{"start":{"lineNumber":15,"utf16Col":0},"end":{"lineNumber":15,"utf16Col":6}},"extentUtf16":{"start":{"lineNumber":15,"utf16Col":0},"end":{"lineNumber":15,"utf16Col":37}}},{"name":"dbPass","kind":"constant","identStart":599,"identEnd":605,"extentStart":599,"extentEnd":640,"fullyQualifiedName":"dbPass","identUtf16":{"start":{"lineNumber":16,"utf16Col":0},"end":{"lineNumber":16,"utf16Col":6}},"extentUtf16":{"start":{"lineNumber":16,"utf16Col":0},"end":{"lineNumber":16,"utf16Col":41}}},{"name":"app","kind":"constant","identStart":675,"identEnd":678,"extentStart":675,"extentEnd":696,"fullyQualifiedName":"app","identUtf16":{"start":{"lineNumber":19,"utf16Col":0},"end":{"lineNumber":19,"utf16Col":3}},"extentUtf16":{"start":{"lineNumber":19,"utf16Col":0},"end":{"lineNumber":19,"utf16Col":21}}},{"name":"engine","kind":"constant","identStart":870,"identEnd":876,"extentStart":870,"extentEnd":1014,"fullyQualifiedName":"engine","identUtf16":{"start":{"lineNumber":26,"utf16Col":0},"end":{"lineNumber":26,"utf16Col":6}},"extentUtf16":{"start":{"lineNumber":26,"utf16Col":0},"end":{"lineNumber":26,"utf16Col":144}}},{"name":"Base","kind":"constant","identStart":1015,"identEnd":1019,"extentStart":1015,"extentEnd":1040,"fullyQualifiedName":"Base","identUtf16":{"start":{"lineNumber":27,"utf16Col":0},"end":{"lineNumber":27,"utf16Col":4}},"extentUtf16":{"start":{"lineNumber":27,"utf16Col":0},"end":{"lineNumber":27,"utf16Col":25}}},{"name":"Users","kind":"class","identStart":1070,"identEnd":1075,"extentStart":1064,"extentEnd":2095,"fullyQualifiedName":"Users","identUtf16":{"start":{"lineNumber":30,"utf16Col":6},"end":{"lineNumber":30,"utf16Col":11}},"extentUtf16":{"start":{"lineNumber":30,"utf16Col":0},"end":{"lineNumber":55,"utf16Col":39}}},{"name":"__tablename__","kind":"constant","identStart":1087,"identEnd":1100,"extentStart":1087,"extentEnd":1110,"fullyQualifiedName":"Users.__tablename__","identUtf16":{"start":{"lineNumber":31,"utf16Col":4},"end":{"lineNumber":31,"utf16Col":17}},"extentUtf16":{"start":{"lineNumber":31,"utf16Col":4},"end":{"lineNumber":31,"utf16Col":27}}},{"name":"Id","kind":"constant","identStart":1115,"identEnd":1117,"extentStart":1115,"extentEnd":1173,"fullyQualifiedName":"Users.Id","identUtf16":{"start":{"lineNumber":32,"utf16Col":4},"end":{"lineNumber":32,"utf16Col":6}},"extentUtf16":{"start":{"lineNumber":32,"utf16Col":4},"end":{"lineNumber":32,"utf16Col":62}}},{"name":"userId","kind":"constant","identStart":1178,"identEnd":1184,"extentStart":1178,"extentEnd":1221,"fullyQualifiedName":"Users.userId","identUtf16":{"start":{"lineNumber":33,"utf16Col":4},"end":{"lineNumber":33,"utf16Col":10}},"extentUtf16":{"start":{"lineNumber":33,"utf16Col":4},"end":{"lineNumber":33,"utf16Col":47}}},{"name":"cookieValue","kind":"constant","identStart":1226,"identEnd":1237,"extentStart":1226,"extentEnd":1272,"fullyQualifiedName":"Users.cookieValue","identUtf16":{"start":{"lineNumber":34,"utf16Col":4},"end":{"lineNumber":34,"utf16Col":15}},"extentUtf16":{"start":{"lineNumber":34,"utf16Col":4},"end":{"lineNumber":34,"utf16Col":50}}},{"name":"cookieExpires","kind":"constant","identStart":1277,"identEnd":1290,"extentStart":1277,"extentEnd":1309,"fullyQualifiedName":"Users.cookieExpires","identUtf16":{"start":{"lineNumber":35,"utf16Col":4},"end":{"lineNumber":35,"utf16Col":17}},"extentUtf16":{"start":{"lineNumber":35,"utf16Col":4},"end":{"lineNumber":35,"utf16Col":36}}},{"name":"__init__","kind":"function","identStart":1681,"identEnd":1689,"extentStart":1677,"extentEnd":2095,"fullyQualifiedName":"Users.__init__","identUtf16":{"start":{"lineNumber":44,"utf16Col":8},"end":{"lineNumber":44,"utf16Col":16}},"extentUtf16":{"start":{"lineNumber":44,"utf16Col":4},"end":{"lineNumber":55,"utf16Col":39}}},{"name":"metadata","kind":"constant","identStart":2167,"identEnd":2175,"extentStart":2167,"extentEnd":2188,"fullyQualifiedName":"metadata","identUtf16":{"start":{"lineNumber":61,"utf16Col":0},"end":{"lineNumber":61,"utf16Col":8}},"extentUtf16":{"start":{"lineNumber":61,"utf16Col":0},"end":{"lineNumber":61,"utf16Col":21}}},{"name":"Session","kind":"constant","identStart":2206,"identEnd":2213,"extentStart":2206,"extentEnd":2241,"fullyQualifiedName":"Session","identUtf16":{"start":{"lineNumber":63,"utf16Col":0},"end":{"lineNumber":63,"utf16Col":7}},"extentUtf16":{"start":{"lineNumber":63,"utf16Col":0},"end":{"lineNumber":63,"utf16Col":35}}},{"name":"session","kind":"constant","identStart":2242,"identEnd":2249,"extentStart":2242,"extentEnd":2261,"fullyQualifiedName":"session","identUtf16":{"start":{"lineNumber":64,"utf16Col":0},"end":{"lineNumber":64,"utf16Col":7}},"extentUtf16":{"start":{"lineNumber":64,"utf16Col":0},"end":{"lineNumber":64,"utf16Col":19}}},{"name":"cookieValue","kind":"constant","identStart":2263,"identEnd":2274,"extentStart":2263,"extentEnd":2295,"fullyQualifiedName":"cookieValue","identUtf16":{"start":{"lineNumber":66,"utf16Col":0},"end":{"lineNumber":66,"utf16Col":11}},"extentUtf16":{"start":{"lineNumber":66,"utf16Col":0},"end":{"lineNumber":66,"utf16Col":32}}},{"name":"cookieKey","kind":"constant","identStart":2296,"identEnd":2305,"extentStart":2296,"extentEnd":2316,"fullyQualifiedName":"cookieKey","identUtf16":{"start":{"lineNumber":67,"utf16Col":0},"end":{"lineNumber":67,"utf16Col":9}},"extentUtf16":{"start":{"lineNumber":67,"utf16Col":0},"end":{"lineNumber":67,"utf16Col":20}}},{"name":"users","kind":"constant","identStart":2317,"identEnd":2322,"extentStart":2317,"extentEnd":2497,"fullyQualifiedName":"users","identUtf16":{"start":{"lineNumber":68,"utf16Col":0},"end":{"lineNumber":68,"utf16Col":5}},"extentUtf16":{"start":{"lineNumber":68,"utf16Col":0},"end":{"lineNumber":72,"utf16Col":9}}},{"name":"generateCookieId","kind":"function","identStart":2543,"identEnd":2559,"extentStart":2539,"extentEnd":2586,"fullyQualifiedName":"generateCookieId","identUtf16":{"start":{"lineNumber":75,"utf16Col":4},"end":{"lineNumber":75,"utf16Col":20}},"extentUtf16":{"start":{"lineNumber":75,"utf16Col":0},"end":{"lineNumber":76,"utf16Col":23}}},{"name":"setCookie","kind":"function","identStart":2626,"identEnd":2635,"extentStart":2622,"extentEnd":3330,"fullyQualifiedName":"setCookie","identUtf16":{"start":{"lineNumber":81,"utf16Col":4},"end":{"lineNumber":81,"utf16Col":13}},"extentUtf16":{"start":{"lineNumber":81,"utf16Col":0},"end":{"lineNumber":101,"utf16Col":15}}},{"name":"getCookie","kind":"function","identStart":3368,"identEnd":3377,"extentStart":3364,"extentEnd":3901,"fullyQualifiedName":"getCookie","identUtf16":{"start":{"lineNumber":104,"utf16Col":4},"end":{"lineNumber":104,"utf16Col":13}},"extentUtf16":{"start":{"lineNumber":104,"utf16Col":0},"end":{"lineNumber":119,"utf16Col":37}}},{"name":"deleteCookie","kind":"function","identStart":3942,"identEnd":3954,"extentStart":3938,"extentEnd":4358,"fullyQualifiedName":"deleteCookie","identUtf16":{"start":{"lineNumber":122,"utf16Col":4},"end":{"lineNumber":122,"utf16Col":16}},"extentUtf16":{"start":{"lineNumber":122,"utf16Col":0},"end":{"lineNumber":134,"utf16Col":15}}}]}},"copilotInfo":null,"copilotAccessAllowed":false,"csrf_tokens":{"/ugoMusk/HTML2MD-
-Api/branches":{"post":"c25LvhXpN3dmuEXUhGpPVV1e44w83TvR6DH-
-Cd7pNnhx1OBJhS0ZdVhjOO_FhPxTrBym5sihLt7FavgHYHaBNA"},"/repos/preferences":{"post":"G2ktdgpWdaMAh3HSyxebaovydWC73JXLIBuHPBcdye118_u5M3Yt1bbd_STfi65kbqKv5OvItAKWOTQ-3sapug"}}},"title":"HTML2MD-
-Api/html2md/models/storage/cookies.py at main · ugoMusk/HTML2MD-Api"}
->>>>>>> 697ee8d (updates)
-=======
- **Search** Images Maps Play YouTube News Gmail Drive _More_ »
+# Sign in
 
-Web History | Settings | Sign in
+to continue to Gmail
 
-  
+Email or phone
 
-![Google](/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png)  
-  
+Forgot email?
 
- |
+Not your computer? Use a private browsing window to sign in. Learn more
 
-  
-| Advanced search  
----|---|---  
-  
-  
+Next
 
-Google offered in: Hausa Igbo Èdè Yorùbá Nigerian Pidgin
+Create account
 
-AdvertisingBusiness SolutionsAbout GoogleGoogle.com.ng
+AfrikaansazərbaycanbosanskicatalàČeštinaCymraegDanskDeutscheestiEnglish
+(United Kingdom)English (United States)Español (España)Español
+(Latinoamérica)euskaraFilipinoFrançais (Canada)Français
+(France)GaeilgegalegoHrvatskiIndonesiaisiZuluíslenskaItalianoKiswahililatviešulietuviųmagyarMelayuNederlandsnorsko‘zbekpolskiPortuguês
+(Brasil)Português (Portugal)românăshqipSlovenčinaslovenščinasrpski
+(latinica)SuomiSvenskaTiếng ViệtTürkçeΕλληνικάбеларускаябългарскикыргызчақазақ
+тілімакедонскимонголРусскийсрпски
+(ћирилица)Українськаქართულიհայերեն‫עברית‬‎‫اردو‬‎‫العربية‬‎‫فارسی‬‎አማርኛनेपालीमराठीहिन्दीঅসমীয়াবাংলাਪੰਜਾਬੀગુજરાતીଓଡ଼ିଆதமிழ்తెలుగుಕನ್ನಡമലയാളംසිංහලไทยລາວမြန်မာខ្មែរ한국어中文（香港）日本語简体中文繁體中文
 
-(C) 2023 - Privacy \- Terms
->>>>>>> cbe9dba98e22bbf79733d248051cc185bc30f6e0
+  * Help
+  * Privacy
+  * Terms
 

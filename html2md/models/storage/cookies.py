@@ -77,7 +77,6 @@ def generateCookieId():
     return str(uuid4())
 
 
-
 # define function to set cookie
 def setCookie(key=cookieKey, value=cookieValue):
     # create response object
@@ -90,6 +89,7 @@ def setCookie(key=cookieKey, value=cookieValue):
     # get current time and add one day for expiration
     now = datetime.now()
     expires = now + timedelta(days=1)
+    resp = " "
     try:
 
         # result = session.query(users.name).filter(users.age > 20).all()

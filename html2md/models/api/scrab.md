@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 {"payload":{"allShortcutsEnabled":false,"fileTree":{"html2md/models/storage":{"items":[{"name":"__init__.py","path":"html2md/models/storage/__init__.py","contentType":"file"},{"name":"cookies.py","path":"html2md/models/storage/cookies.py","contentType":"file"}],"totalCount":2},"html2md/models":{"items":[{"name":"api","path":"html2md/models/api","contentType":"directory"},{"name":"engine","path":"html2md/models/engine","contentType":"directory"},{"name":"proxyserver","path":"html2md/models/proxyserver","contentType":"directory"},{"name":"storage","path":"html2md/models/storage","contentType":"directory"},{"name":"views","path":"html2md/models/views","contentType":"directory"},{"name":"__init__.py","path":"html2md/models/__init__.py","contentType":"file"}],"totalCount":6},"html2md":{"items":[{"name":"models","path":"html2md/models","contentType":"directory"},{"name":"tests","path":"html2md/tests","contentType":"directory"},{"name":".travis.yml","path":"html2md/.travis.yml","contentType":"file"},{"name":"__init__.py","path":"html2md/__init__.py","contentType":"file"},{"name":"deploy.sh","path":"html2md/deploy.sh","contentType":"file"},{"name":"requirements.txt","path":"html2md/requirements.txt","contentType":"file"},{"name":"testsql.py","path":"html2md/testsql.py","contentType":"file"}],"totalCount":7},"":{"items":[{"name":"html2md","path":"html2md","contentType":"directory"},{"name":".gitignore","path":".gitignore","contentType":"file"},{"name":".travis.yml","path":".travis.yml","contentType":"file"},{"name":"Dockerfile","path":"Dockerfile","contentType":"file"},{"name":"LICENSE","path":"LICENSE","contentType":"file"},{"name":"README.md","path":"README.md","contentType":"file"},{"name":"init.sql","path":"init.sql","contentType":"file"}],"totalCount":7}},"fileTreeProcessingTime":6.36285,"foldersToFetch":[],"reducedMotionEnabled":null,"repo":{"id":700998234,"defaultBranch":"main","name":"HTML2MD-
@@ -140,4 +141,28 @@ Api/branches":{"post":"c25LvhXpN3dmuEXUhGpPVV1e44w83TvR6DH-
 Cd7pNnhx1OBJhS0ZdVhjOO_FhPxTrBym5sihLt7FavgHYHaBNA"},"/repos/preferences":{"post":"G2ktdgpWdaMAh3HSyxebaovydWC73JXLIBuHPBcdye118_u5M3Yt1bbd_STfi65kbqKv5OvItAKWOTQ-3sapug"}}},"title":"HTML2MD-
 Api/html2md/models/storage/cookies.py at main · ugoMusk/HTML2MD-Api"}
 >>>>>>> 697ee8d (updates)
+=======
+ **Search** Images Maps Play YouTube News Gmail Drive _More_ »
+
+Web History | Settings | Sign in
+
+  
+
+![Google](/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png)  
+  
+
+ |
+
+  
+| Advanced search  
+---|---|---  
+  
+  
+
+Google offered in: Hausa Igbo Èdè Yorùbá Nigerian Pidgin
+
+AdvertisingBusiness SolutionsAbout GoogleGoogle.com.ng
+
+(C) 2023 - Privacy \- Terms
+>>>>>>> cbe9dba98e22bbf79733d248051cc185bc30f6e0
 

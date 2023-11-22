@@ -10,6 +10,9 @@ from flask import Flask, jsonify, send_file, render_template, url_for, redirect,
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
 from flask_cors import CORS, cross_origin
+from  git_post import uploadFileToGithub
+import json
+import base64
 
 app = Flask(__name__)
 
@@ -63,7 +66,25 @@ def convertMain():
     return render_template('convert.html', result=res)
     # return res
 
+@app.route("/upload", methods=['GET', 'POST'], strict_slashes=False)
+def postToGithub():
+    """ upload converted markdown to user's github repository """
 
+    filePath = "new string"
+    repoOwner = request.form.get('repoOwner')
+    repoName = request.form.get('repoName')
+    repoFilePath = request.form.get('repoFilePath')
+    githubToken = request.form.get('githubToken')
+
+    res = uploadFileToGithub(filePath,
+                              repoOwner,repoName,
+                              repoFilePath,
+                              githubToken)
+    # Decode the base64 content to get the text
+    # dictRes = base64.b64decode(res).decode('utf-8')
+    dictRes = f"Response Headers: {res.headers}\n\n Response Message: {res.text}"
+    return render_template('convert.html', postRes=dictRes)
+    
 @app.route("/download", methods=['GET'], strict_slashes=False)
 def downloadFile():
     """

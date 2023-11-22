@@ -68,20 +68,72 @@ document.getElementById("convertBtn").addEventListener("click", function() {
     postBtn.style.display = "block";
 }
 */
+/*
+function showGitBtn(){
+    // Get the element by it IDs
+    const element = document.getElementById("postToGitHubBtn");
+    let dis = window.getComputedStyle(element).getPropertyValue("display");
+    if (dis !== 'block'){
+	element.style.display = 'block'
+    }
+}*/
+/*
+// Get the form element
+var form = document.getElementById("form");
 
+// Add a submit event listener
+form.addEventListener("submit", function(event) {
+    // Prevent the default form submission
+    event.preventDefault();
 
-// Get the element and the button by their IDs
-var element = document.getElementById("postToGitHubBtn");
-var button = document.getElementById("convertBtn");
+    // Get the form data
+    var data = new FormData(form);
 
-// Add a click event listener to the button
-button.addEventListener("click", function() {
-  // Check the current value of the display property
-  if (element.style.display === "none") {
-    // If the element is hidden, show it
-    element.style.display = "inline";
-  } else {
-    // If the element is visible, hide it
-    element.style.display = "none";
-  }
+    // Send the data using fetch
+    fetch("/convert", {
+	method: "POST", // The request method
+	body: data, // The request body
+    })
+    // Handle the response
+	.then(function(response) {
+	    // Check if the response is ok
+	    if (response.ok) {
+		// Extract the response body as text
+		return response.text();
+	    } else {
+		// Throw an error
+		throw new Error("Something went wrong");
+	    }
+	})
+    // Handle the response body
+	.then(function(text) {
+	    // Do something with the text
+	    // For example, show a message
+	    document.getElementById("message").textContent = text;
+
+	    // Get the element by its ID
+	    const element = document.getElementById("postToGitHubBtn");
+	    let dis = window.getComputedStyle(element).getPropertyValue("display");
+	    if (dis !== "block") {
+		element.style.display = "block";
+	    }
+	})
+    // Handle any errors
+	.catch(function(error) {
+	    // Log the error
+	    console.error(error);
+	});
 });
+*/
+function showGitForm(){
+    // Get the element by its ID
+    const gitHubBtn = document.getElementById("postToGitHubBtn");
+    gitHubBtn.addEventListener("click", function(){
+	var githubForm = document.getElementById("github-inputs");
+	let dis = window.getComputedStyle(githubForm).getPropertyValue("display");
+	if (dis !== "block") {
+            githubForm.style.display = "block";
+	}
+    });
+}
+showGitForm();

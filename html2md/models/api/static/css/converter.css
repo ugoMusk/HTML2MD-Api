@@ -12,6 +12,15 @@ body {
     margin-top: 6%;
     padding: 10px;
 }
+
+.container2 {
+    max-width: 600px;
+    margin: 6% 6%;
+    text-align: left;
+    padding: 15px;
+    background-color:#adf;
+    overflow-x: scroll;
+}
 .input-container {
     display: flex;
     flex-direction: row;
@@ -34,6 +43,15 @@ body {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+.button-form {
+    background-color: #707bff;
+    width: fit-content;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
 .button:hover {
     background-color: #003fb3;
 }
@@ -61,8 +79,18 @@ body {
 .clear-button:hover {
     background-color: #bb2c3d;
 }
-.github-inputs input {
-    display: None;
+
+input{
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+}
+
+#github-inputs{
+    display: none;
     margin-bottom: 10px;
     width: calc(100% - 20px);
     padding: 10px;
@@ -114,6 +142,7 @@ img {
     color: white;
     
 }
-#postToGitHubBtn {
-    display: None
+
+.logo-text {
+    color: #235469;
 }

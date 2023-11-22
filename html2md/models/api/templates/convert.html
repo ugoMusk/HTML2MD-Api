@@ -189,12 +189,19 @@
           <input type="text" name="repoFilePath" id="filePathInput" placeholder="File Path in Repo" required>
           <input type="text" name="githubToken" id="githubTokenInput" placeholder="GitHub Token" required>
 	  <input type="submit" class="button-form" value="Post">
+	  </form>
       </div>
-      
-<div class="container2">{{ postRes | safe }}</div>
+      <div class="input-container">
+        <div class="input-box">
+	  <div class="container2">{{ postRes | safe }}</div>
+	</div>
+      </div>
     </div>
+    <hr>
   </div>
 </section>
+<br/>
+<div></div>
 
 
 <!-- Panel Bottom -->

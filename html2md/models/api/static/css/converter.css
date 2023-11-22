@@ -4,6 +4,7 @@ body {
     color: #234463;
     margin: 10px 10px 10px 10px;
     padding: 0;
+    overflow-x: scroll !important;
 }
 .container {
     max-width: 800px;
@@ -14,12 +15,17 @@ body {
 }
 
 .container2 {
-    max-width: 600px;
-    margin: 6% 6%;
+    display: block;
+    width: 60%;
+    margin: auto;
     text-align: left;
-    padding: 15px;
-    background-color:#adf;
-    overflow-x: scroll;
+    background-color:#aef;
+    border-style: ridge;
+    border-color: #235469;
+    border-width: 12px;
+    color: black;
+    line-height: 1.5em;
+    overflow-wrap: break-word;
 }
 .input-container {
     display: flex;

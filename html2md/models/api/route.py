@@ -80,9 +80,16 @@ def postToGithub():
                               repoOwner,repoName,
                               repoFilePath,
                               githubToken)
-    # Decode the base64 content to get the text
-    # dictRes = base64.b64decode(res).decode('utf-8')
-    dictRes = f"Response Headers: {res.headers}\n\n Response Message: {res.text}"
+
+    # if res.status_code == 200:
+       # dictRes = f"Markdown posted to Github with status {res.status}"
+    # elif res.status_code == 404:
+      #  dictRes = f"Github Repository doesn't exist or likely a typo in your repo name: error : {res.status}"
+    # elif res.status_code == 500:
+      #  dictRes = f"Your PAT is either invalid, expired or likely a typo in your Github username"
+    # else:
+      #  dictRes = f"I'm not sure I understand what you're trying to do, please fill in your details correctly"
+    dictRes = f"{res.status_code}"
     return render_template('convert.html', postRes=dictRes)
     
 @app.route("/download", methods=['GET'], strict_slashes=False)

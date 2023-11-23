@@ -159,12 +159,6 @@
         <div class="input-box">
 	  <br>
 	  <br>
-	  <small>{{ resultDb | safe }}</small>
-	  <br>
-	  <br>
-	  <button id="postToGitHubBtn" class="button">{{ resultBtn | safe }}</button>
-	  <br>
-	  <hr>
           <form id="Form" method="POST" action="/convert" >
             <label class="logo-text" for="urlInput">Enter URL:</label>
 	    <br>
@@ -194,7 +188,13 @@
       </div>
       <br>
       <hr>
+      <br>	  
+      <small></small>
       <br>
+      <br>
+      <button id="postToGitHubBtn" class="button">{{ resultBtn | safe }}</button>
+      <br>
+      <hr>	  
       <div id="github-inputs">
 	<form method="POST" action="/upload">
           <input type="text" name="repoOwner" id="repoOwnerInput" placeholder="GitHub Repo Owner(username)" required>
@@ -217,10 +217,11 @@
 <div></div>
 
 
-<!-- Panel Bottom -->
+<!-- Panel Bottom #01 -->
 <nav class="panel bottom forceMobileView">
   <div class="sections desktop">
     <div class="left">&copy<script>document. write( new Date(). getFullYear() );</script> | samsueugo_devs | Credits:Designmodo | <a href="https://www.alxafrica.com/" class="opacity-9 blue">ALX Software Engineering Bootcamp</a></div>
+    <div class="center small opacity-3"><span class="nextSlide"><svg></svg></span></div>
     <div class="right"><span data-dropdown-id="2" class="button actionButton dropdownTrigger"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#share"></use></svg></span></div>
   </div>
   <div class="sections compact hidden">
@@ -229,7 +230,6 @@
     </div>
   </div>
 </nav>
-
 <!-- Share Window -->
 <div class="dropdown share bottom right" data-dropdown-id="2" data-text="Take a look at this" data-url="https://designmodo.com" data-pinterest-image="https://designmodo.com/wp-content/uploads/2015/10/Presentation.jpg">
   <div class="center padding-2">

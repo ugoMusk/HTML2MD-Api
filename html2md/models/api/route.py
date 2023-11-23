@@ -70,6 +70,7 @@ def convertMain():
         except Exception as e:
             res = f"{e}"
             resDb = f"Error {e}"
+            gitBtn = f"{e}"
     elif request.form.get('userHtml'):
         userInput = request.form.get('userHtml')
         try:
@@ -79,6 +80,7 @@ def convertMain():
         except Exception as e:
             res = f"{e}"
             resDb = f"{e}"
+            gitBtn = f"{e}"
     else:
         resDb = ""
         gitBtn = ""

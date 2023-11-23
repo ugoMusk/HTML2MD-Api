@@ -49,12 +49,14 @@ def convertMarkdown2Html(markdown):
 def downloadUrl(url):
     # Send a GET request to url
     response = requests.get(url)
-    # Deacode reponse to text and assign to variable
     encoding = chardet.detect(response.content)['encoding']
-
     body = response.content.decode(encoding)
+    # Deacode reponse to text and assign to variable
+    # encoding = chardet.detect(response.content)['encoding']
+
+    # body = response.content.decode(encoding)
     
-    path2Html = "scrab.html"
+    """ path2Html = "scrab.html"
     path2Md = "scrab.md"
 
     try:
@@ -77,7 +79,8 @@ def downloadUrl(url):
                     return convertedMd
     except FileNotFoundError:
         print(f"{path2Html} not found")
-        
+    """
+    convertedMd = convertHtml2Markdown(body)
     return convertedMd
     
 def main():

@@ -1,29 +1,23 @@
-![Google](//ssl.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_74x24dp.png)
+ **Search** Images Maps Play YouTube News Gmail Drive _More_ »
 
-# Sign in
+Web History | Settings | Sign in
 
-to continue to Gmail
+  
 
-Email or phone
+![Google](/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png)  
+  
 
-Forgot email?
+ |
 
-Not your computer? Use a private browsing window to sign in. Learn more
+  
+| Advanced search  
+---|---|---  
+  
+  
 
-Next
+Google offered in: Hausa Igbo Èdè Yorùbá Nigerian Pidgin
 
-Create account
+AdvertisingBusiness SolutionsAbout GoogleGoogle.com.ng
 
-AfrikaansazərbaycanbosanskicatalàČeštinaCymraegDanskDeutscheestiEnglish
-(United Kingdom)English (United States)Español (España)Español
-(Latinoamérica)euskaraFilipinoFrançais (Canada)Français
-(France)GaeilgegalegoHrvatskiIndonesiaisiZuluíslenskaItalianoKiswahililatviešulietuviųmagyarMelayuNederlandsnorsko‘zbekpolskiPortuguês
-(Brasil)Português (Portugal)românăshqipSlovenčinaslovenščinasrpski
-(latinica)SuomiSvenskaTiếng ViệtTürkçeΕλληνικάбеларускаябългарскикыргызчақазақ
-тілімакедонскимонголРусскийсрпски
-(ћирилица)Українськаქართულიհայերեն‫עברית‬‎‫اردو‬‎‫العربية‬‎‫فارسی‬‎አማርኛनेपालीमराठीहिन्दीঅসমীয়াবাংলাਪੰਜਾਬੀગુજરાતીଓଡ଼ିଆதமிழ்తెలుగుಕನ್ನಡമലയാളംසිංහලไทยລາວမြန်မာខ្មែរ한국어中文（香港）日本語简体中文繁體中文
-
-  * Help
-  * Privacy
-  * Terms
+(C) 2023 - Privacy \- Terms
 

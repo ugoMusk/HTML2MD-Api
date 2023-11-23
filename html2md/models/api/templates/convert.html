@@ -118,9 +118,9 @@
     <div class="right"><span class="button actionButton sidebarTrigger" data-sidebar-id="1"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu"></use></svg></span</div>
   </div>
 </nav>
-<br/>
-<br/>
-<br/>
+<hr style="background-color:white; width:6px; z-index:1;">
+<br>
+<br>
 
 <!-- Sidebar -->
 <nav class="sidebar" data-sidebar-id="1">
@@ -149,29 +149,40 @@
     </ul>
   </div>
 </nav>
-<br >
+<br>
 <!-- Slide 1 (#34) -->
-<section class="slide  fade-6 kenBurns">
+<section class="fade-6 kenBurns">
   <div class="content">
     <div class="container">
       <h4>HTML to Markdown Converter</h4>
       <div class="input-container">
         <div class="input-box">
+	  <br>
+	  <br>
+	  <small>{{ resultDb | safe }}</small>
+	  <br>
+	  <br>
+	  <button id="postToGitHubBtn" class="button">{{ resultBtn | safe }}</button>
+	  <br>
+	  <hr>
           <form id="Form" method="POST" action="/convert" >
             <label class="logo-text" for="urlInput">Enter URL:</label>
-	    <br/>
-            <input type="text" id="urlInput" name="userUrl" placeholder="Enter URL" required>                      <br/>
+	    <br>
+            <input type="text" id="urlInput" name="userUrl" placeholder="Enter URL" required>                      <br>
             <input type="submit" id="convertBtn" class="button-form" value="Convert">
-	    <br/>
+	    <br>
+	    <hr>
+	    <br>
             <div id="result">
-	      <label class="logo-text" >markdown</label>
-              <textarea id="outputTextarea">{{ result | safe }}</textarea>
+	      <label class="logo-text" name="convertedMarkdown" >markdown</label>
+              <textarea id="outputTextarea" placeholder="output would appear here!">{{ result | safe }}</textarea>
             </div>
           </form>
         </div>
       </div>
-      <br/>
-      <br/>
+      <br>
+      <hr>
+      <br>
       <div class="input-container">
         <div class="input-box">
 	  <form method="POST" action="/convert">
@@ -181,7 +192,9 @@
 	  </form>
         </div>
       </div>
-      <button id="postToGitHubBtn" class="button">Post to GitHub?</button>
+      <br>
+      <hr>
+      <br>
       <div id="github-inputs">
 	<form method="POST" action="/upload">
           <input type="text" name="repoOwner" id="repoOwnerInput" placeholder="GitHub Repo Owner" required>
@@ -200,7 +213,7 @@
     <hr>
   </div>
 </section>
-<br/>
+<br>
 <div></div>
 
 
@@ -208,7 +221,6 @@
 <nav class="panel bottom forceMobileView">
   <div class="sections desktop">
     <div class="left">&copy<script>document. write( new Date(). getFullYear() );</script> | samsueugo_devs | Credits:Designmodo | <a href="https://www.alxafrica.com/" class="opacity-9 blue">ALX Software Engineering Bootcamp</a></div>
-    <div class="center small opacity-3">click to slide<span class="nextSlide"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#arrow-down"></use></svg></span></div>
     <div class="right"><span data-dropdown-id="2" class="button actionButton dropdownTrigger"><svg><use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#share"></use></svg></span></div>
   </div>
   <div class="sections compact hidden">

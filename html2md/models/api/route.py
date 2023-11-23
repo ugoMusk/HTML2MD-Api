@@ -9,12 +9,18 @@ sys.path.append(modelPath)
 from flask import Flask, jsonify, send_file, render_template, url_for, redirect, request
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
+from storage.cookies import updateUserFile, getUserFile
 from flask_cors import CORS, cross_origin
+from flask_compress import Compress
 from  git_post import uploadFileToGithub
 import json
 import base64
+import chardet
 
 app = Flask(__name__)
+
+compress = Compress()
+compress.init_app(app)
 
 CORS(app)
 
@@ -26,6 +32,8 @@ def convertUrl():
     userUrl = request.form.get('name')
     if userUrl:
         res = downloadUrl(userUrl)
+        userFile = request.form.get('convertedMarkdown')
+        updateUserFile(userFile)
     else:
         res = "Your converted Markdown will appear here"
     return render_template('converturl.html', userUrl=userUrl, result=res)
@@ -39,6 +47,8 @@ def convertHtml():
     userHtml = request.form.get('userHtml')
     if userHtml:
         res = convertHtml2Markdown(userHtml)
+        userFile = request.form.get('convertedMarkdown')
+        updateUserFile(userFile)
     else:
         res = "Your converted Markdown will appear here"
     return render_template('converthtml.html', result=res)
@@ -55,22 +65,30 @@ def convertMain():
         userInput = request.form.get('userUrl')
         try:
             res = downloadUrl(userInput)
+            resDb = updateUserFile(res)
+            gitBtn = "Post to github?"
         except Exception as e:
-            res = e
+            res = f"{e}"
+            resDb = f"Error {e}"
     elif request.form.get('userHtml'):
         userInput = request.form.get('userHtml')
         try:
             res = convertHtml2Markdown(userInput)
+            resDb = updateUserFile(res)
+            gitBtn = "Post to github?"
         except Exception as e:
-            res = "Please provide valid html"
-    return render_template('convert.html', result=res)
-    # return res
+            res = f"{e}"
+            resDb = f"{e}"
+    else:
+        resDb = ""
+        gitBtn = ""
+    return render_template('convert.html', result=res, resultDb=resDb, resultBtn=gitBtn)
 
 @app.route("/upload", methods=['GET', 'POST'], strict_slashes=False)
 def postToGithub():
     """ upload converted markdown to user's github repository """
 
-    filePath = "new string"
+    filePath = getUserFile()
     repoOwner = request.form.get('repoOwner')
     repoName = request.form.get('repoName')
     repoFilePath = request.form.get('repoFilePath')
@@ -81,15 +99,14 @@ def postToGithub():
                               repoFilePath,
                               githubToken)
 
-    # if res.status_code == 200:
-       # dictRes = f"Markdown posted to Github with status {res.status}"
-    # elif res.status_code == 404:
-      #  dictRes = f"Github Repository doesn't exist or likely a typo in your repo name: error : {res.status}"
-    # elif res.status_code == 500:
-      #  dictRes = f"Your PAT is either invalid, expired or likely a typo in your Github username"
-    # else:
-      #  dictRes = f"I'm not sure I understand what you're trying to do, please fill in your details correctly"
-    dictRes = f"{res.status_code}"
+    if res.status_code == 201 or res.status_code == 200:
+       dictRes = f"Markdown posted to Github with status {res.status_code}"
+    elif res.status_code == 404:
+      dictRes = f"Github Repository doesn't exist or likely a typo in your github user name and or  repo name: error : {res.status_code}"
+    elif res.status_code == 401:
+      dictRes = f"Your PAT is either invalid or expired, you should likely  create a new one: error : {res.status_code}"
+    else:
+      dictRes = f"I'm not sure I understand what you're trying to do, please fill 'in' your details correctly: error : {res.status_code}"
     return render_template('convert.html', postRes=dictRes)
     
 @app.route("/download", methods=['GET'], strict_slashes=False)

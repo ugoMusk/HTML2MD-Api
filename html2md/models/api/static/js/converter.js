@@ -133,6 +133,7 @@ function showGitForm(){
 	let dis = window.getComputedStyle(githubForm).getPropertyValue("display");
 	if (dis !== "block") {
             githubForm.style.display = "block";
+	    githubForm.scrollIntoView();
 	}
     });
 }

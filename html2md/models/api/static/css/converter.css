@@ -16,7 +16,7 @@ body {
 
 .container2 {
     display: block;
-    width: 60%;
+    width: fit-content;
     margin: auto;
     text-align: left;
     background-color:#aef;
@@ -26,7 +26,6 @@ body {
     color: black;
     line-height: 1.5em;
     height: 70%;
-    overflow-x: scroll;
     overflow-wrap: break-word;
 }
 .input-container {
@@ -157,4 +156,5 @@ img {
 hr {
     width: 4px;
     background-color: white !important;
+    color: white;
 } 

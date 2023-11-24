@@ -107,6 +107,12 @@ img {
 }
 .teal-dark {
     background-color: #235469;
-    color: white;
-    
+    color: white;    
+}
+.logo-text {
+    /*color: #235469;*/
+    color: #FFFFFF;
+    background: #232323;
+    text-shadow: 0 0 50px #FFF, 0 0 5px teal, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 10px teal, 0 0 10px teal, 0 0 55px #490F18, 0 0 75px #49ff18;
+    color: #FFFFFF;
 }

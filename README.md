@@ -7,7 +7,7 @@ within other services that render Markdown. The descriptions in this
 collection contain markdown syntax and some of them have links to HTML pages
 of their rendered version.**
 
-If you want to test Markdown, use provided routes at http://api.html2md.tech/test_convert
+If you want to test Markdown, use provided routes at http://api.html2md.software/convert
 
 Also, developers love Github Markdown Styling:
 that's our priority!
@@ -168,7 +168,7 @@ Here's a "line block":
 
 and images can be specified like so:
 
-![example image](https://www.getpostman.com/img/v2/#)
+![example image](#)
 
 example image
 

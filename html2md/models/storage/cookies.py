@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 import os
 import sys
-
 modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
-from proxyserver import access
-from flask import Flask, request, make_response
+from flask import Flask, request
 from sqlalchemy import (
     create_engine,
     Column,
@@ -16,10 +14,13 @@ from sqlalchemy import (
     Table,
     MetaData,
     select,
+    VARCHAR
+
 )
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.exc import PendingRollbackError, IntegrityError
+from proxyserver import access
 from datetime import datetime, timedelta
 from uuid import uuid4
 
@@ -54,7 +55,7 @@ class Users(Base):
     # userPass = Column(String(128), nullable=True)
     # visitCounts = Column(Integer, nullable=True)
     # apiKey = Column(String(255), nullable=True)
-    userFile = Column(String(255), nullable=True)
+    userFile = Column(VARCHAR(7800), nullable=True)
 
     def __init__(self, *args):
         self.userId = args[0]
@@ -77,13 +78,7 @@ metadata = MetaData()
 Session = sessionmaker(bind=engine)
 session = Session()
 
-cookieValue = access.getUserIp()
-cookieKey = "userId"
-user = session.query(Users).filter_by(cookieValue=cookieValue).first()
-if user:
-    userFile = user.userFile
-else:
-    userFile = " "
+userFile = " "
 users = Table(
     "users",
     metadata,
@@ -98,31 +93,6 @@ users = Table(
 def generateCookieId():
     return str(uuid4())
 
-
-# define function to set cookie
-def setCookie(key=cookieKey, value=cookieValue):
-    # create response object
-
-    resp = make_response("Setting the cookie")
-    # generate cookie ID
-    cookieId = generateCookieId()
-    # set cookie in browser with ID as value
-    resp.set_cookie(key, cookieId)
-    # get current time and add one day for expiration
-    now = datetime.now()
-    expires = now + timedelta(days=1)
-    resp = " "
-    try:
-        # result = session.query(users.name).filter(users.age > 20).all()
-        # store user data in database with ID, cookie value, and cookie expiration
-        userInfo = Users(cookieId, value, expires, userFile)
-        session.add(userInfo)
-        session.commit()
-    except IntegrityError:
-        session.rollback()
-    return resp
-
-
 # define function to get cookie
 def getCookie(key):
     # get cookie ID from browser
@@ -130,7 +100,7 @@ def getCookie(key):
     if not cookieId:
         return "No cookie found"
     # get cookie value and expiration from database
-    cookie = session.query(Users).filter_by(cookieId=cookieId).first()
+    cookie = session.query(Users).filter_by(cookieValue=cookieValue).first()
     if not cookie:
         return "No cookie found"
     value = cookie.cookieValue
@@ -158,11 +128,11 @@ def deleteCookie(key):
     return resp
 
 
-def updateUserFile(markdown):
+def updateUserFile(markdown, userIp):
     """ updates the user's file in database """
     try:
         # Check if the user already exists
-        user = session.query(Users).filter_by(cookieValue=cookieValue).first()
+        user = session.query(Users).filter_by(cookieValue=userIp).first()
 
         if user:
             # Update the existing user's file content
@@ -171,8 +141,7 @@ def updateUserFile(markdown):
             ret = f"your output was saved successfully, we can help you post to github also"
         else:
             # Call setCookies
-            setCookie()
-            ret = f"Your output was saved successfully, we can help you post to github also"
+            ret = f"not successful"
 
     except Exception as e:
         # Handle exceptions, rollback changes, and log the error

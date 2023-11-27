@@ -6,16 +6,19 @@ import os
 import sys
 modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
-from flask import Flask, jsonify, send_file, render_template, url_for, redirect, request
+from proxyserver import access
+from flask import Flask, jsonify, send_file, render_template, url_for, redirect, request, make_response
 from engine.engine import downloadUrl, convertHtml2Markdown
 from storage import cookies
-from storage.cookies import updateUserFile, getUserFile
+from storage.cookies import updateUserFile, getUserFile, session, Users
 from flask_cors import CORS, cross_origin
 from flask_compress import Compress
 from  git_post import uploadFileToGithub
 import json
 import base64
 import chardet
+from datetime import datetime, timedelta
+from sqlalchemy.exc import PendingRollbackError, IntegrityError
 
 app = Flask(__name__)
 
@@ -61,11 +64,12 @@ def convertMain():
     """
 
     res = "<body> converted markdown appears here</body>"
+    userIp = access.getUserIp()
     if request.form.get('userUrl'):
         userInput = request.form.get('userUrl')
         try:
             res = downloadUrl(userInput)
-            resDb = updateUserFile(res)
+            resDb = updateUserFile(res, userIp)
             gitBtn = "Post to github?"
         except Exception as e:
             res = f"{e}"
@@ -75,7 +79,7 @@ def convertMain():
         userInput = request.form.get('userHtml')
         try:
             res = convertHtml2Markdown(userInput)
-            resDb = updateUserFile(res)
+            resDb = updateUserFile(res, userIp)
             gitBtn = "Post to github?"
         except Exception as e:
             res = f"{e}"
@@ -127,8 +131,26 @@ def downloadFile():
 
 @app.route("/")
 def setCookieRoute():
-    # set a cookie with key "name" and value "Alice"
-    return render_template("home.html", cookies=cookies.setCookie())
+    # set a cookie with key cookieKey and value "cookieValue"
+    cookieKey = "userId"
+    cookieValue = access.getUserIp()
+    userFile = ""
+    # create response object
+    resp = make_response("Setting the cookie")
+    # set cookie in browser
+    resp.set_cookie(cookieKey, cookieValue)
+    # get current time and add one day for expiration
+    now = datetime.now()
+    expires = now + timedelta(days=165)
+    try:
+        # result = session.query(users.name).filter(users.age > 20).all()
+        # store user data in database with ID, cookie value, and cookie expiration
+        userInfo = Users(cookieKey, cookieValue, expires, userFile)
+        session.add(userInfo)
+        session.commit()
+    except IntegrityError:
+        session.rollback()
+    return render_template("home.html", cookies=resp.get_data(as_text = True))
 
 @app.route("/getcookie")
 def getCookieRoute():

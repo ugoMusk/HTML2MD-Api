@@ -169,6 +169,7 @@
 	    <br>
             <div id="result">
 	      <label class="logo-text" name="convertedMarkdown" >markdown</label>
+	      <p>{{ resultDb | safe}}</p> 
               <textarea id="outputTextarea" placeholder="output would appear here!">{{ result | safe }}</textarea>
             </div>
           </form>

@@ -4,6 +4,7 @@ module defining our api endpoints
 """
 import os
 import sys
+import socket
 modelPath = os.path.abspath("../../models")
 sys.path.append(modelPath)
 from proxyserver import access
@@ -132,8 +133,17 @@ def downloadFile():
 @app.route("/")
 def setCookieRoute():
     # set a cookie with key cookieKey and value "cookieValue"
+    # Create a socket object
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    # Connect to the client
+    sock.connect((request.remote_addr, 5000))
+    # Get the IP address and port of the client
+    ipAddress, port = sock.getpeername()
+    # Close the socket
+    sock.close()
     cookieKey = "userId"
-    cookieValue = access.getUserIp()
+    cookieValue = ipAddress
+    #cookieValue = access.getUserIp()
     userFile = ""
     # create response object
     resp = make_response("Setting the cookie")

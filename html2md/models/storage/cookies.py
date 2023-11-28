@@ -96,15 +96,15 @@ def generateCookieId():
 # define function to get cookie
 def getCookie(key):
     # get cookie ID from browser
-    cookieId = request.cookies.get(key)
-    if not cookieId:
+    cookieValue = request.cookies.get(key)
+    if not cookieValue:
         return "No cookie found"
     # get cookie value and expiration from database
-    cookie = session.query(Users).filter_by(cookieValue=cookieValue).first()
-    if not cookie:
+    user = session.query(Users).filter_by(cookieValue=cookieValue).first()
+    if not user:
         return "No cookie found"
-    value = cookie.cookieValue
-    expires = cookie.cookieExpires
+    value = user.cookieValue
+    expires = user.cookieExpires
     # check if cookie is expired
     now = datetime.now()
     if now > expires:
@@ -115,8 +115,8 @@ def getCookie(key):
 # define function to delete cookie
 def deleteCookie(key):
     # get cookie ID from browser
-    cookieId = request.cookies.get(key)
-    if not cookieId:
+    cookieValue = request.cookies.get(key)
+    if not cookieValue:
         return "No cookie found"
     # create response object
     resp = make_response("Deleting the cookie")
@@ -129,7 +129,10 @@ def deleteCookie(key):
 
 
 def updateUserFile(markdown, userIp):
-    """ updates the user's file in database """
+    """
+    updates the user's file in database
+    usage: updateUserFile(markdown, userIp)
+    """
     try:
         # Check if the user already exists
         user = session.query(Users).filter_by(cookieValue=userIp).first()

@@ -2,8 +2,10 @@
 """ converter engine """
 
 import html2text
-from requests_html import HTMLSession
+import requests
+import requests_file
 import markdown
+import chardet
 
 def convertHtml2Markdown(html):
     """ converts html to markdown format """
@@ -19,16 +21,16 @@ def convertMarkdown2Html(markdown):
     return htmlResult
 
 
-def downloadUrl(url):
-    """ scrab the web """
+""" def downloadUrl(url):
+    #scrab the web
     session = HTMLSession()
     url = url
     res = session.get(url)
     res.encoding = "utf-8"
     body = res.text
 
-    path2Html = "scrab.html"
-    path2Md = "scrab.md"
+    # path2Html = "scrab.html"
+    # path2Md = "scrab.md"
 
     with open(path2Html, mode="w", encoding="utf-8") as scrabFile:
         try:
@@ -43,6 +45,42 @@ def downloadUrl(url):
             scrabMd.write(convertedMd)
         except FileNotFoundError:
             print(f"{scrabMd} Not Found!")
+    return convertedMd """
+def downloadUrl(url):
+    # Send a GET request to url
+    response = requests.get(url)
+    encoding = chardet.detect(response.content)['encoding']
+    body = response.content.decode(encoding)
+    # Deacode reponse to text and assign to variable
+    # encoding = chardet.detect(response.content)['encoding']
+
+    # body = response.content.decode(encoding)
+    
+    """ path2Html = "scrab.html"
+    path2Md = "scrab.md"
+
+    try:
+        with open(path2Html, mode="w", encoding="utf-8") as scrabFile:
+            try:
+                scrabFile.write(body)
+            except Exception as e:
+                print(e)
+    except FileNotFoundError:
+        print(f"{path2Html} not found")
+    try:    
+        with open(path2Html, mode="r", encoding="utf-8") as scrabFile:
+            htmlFile = scrabFile.read()
+            with open(path2Md, mode="w", encoding="utf-8") as scrabMd:
+                try:
+                    convertedMd = convertHtml2Markdown(htmlFile)
+                    scrabMd.write(convertedMd)
+                except FileNotFoundError:
+                    print(f"{scrabMd} Not Found!")
+                    return convertedMd
+    except FileNotFoundError:
+        print(f"{path2Html} not found")
+    """
+    convertedMd = convertHtml2Markdown(body)
     return convertedMd
     
 def main():

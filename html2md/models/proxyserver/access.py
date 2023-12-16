@@ -13,6 +13,7 @@ def getUserIp():
         # Getting the local IP address and hostname
         ip_address = sock.getsockname()[0]
         hostname = socket.gethostname()
+        print(ip_address)
     finally:
         # Closing the socket connection
         sock.close()

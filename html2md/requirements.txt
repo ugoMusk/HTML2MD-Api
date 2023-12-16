@@ -1,0 +1,9 @@
+pytest
+uvicorn
+SQLAlchemy
+mysql-connector
+flask
+Markdown
+html2text
+requests
+requests_html

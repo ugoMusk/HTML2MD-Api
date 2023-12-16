@@ -1,0 +1,125 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f8f8fa;
+    color: #234463;
+    margin: 20px;
+    padding: 6px;
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 50px;
+    padding: 4px;
+}
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+.input-box {
+    flex: 1;
+    margin-right: 30px; /* Increased margin for space between text areas */
+}
+.output-box {
+    flex: 1;
+    margin-left: 30px; /* Increased margin for space between text areas */
+}
+.button {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button:hover {
+    background-color: #003fb3;
+}
+.input-box textarea, .output-box textarea {
+    width: 100%;
+    height: 400px;
+    font-size: 14px;
+    padding: 10px;
+    resize: none;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    display: block;
+    margin-bottom: 10px;
+}
+.clear-button {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.clear-button:hover {
+    background-color: #bb2c3d;
+}
+.github-inputs input {
+    margin-bottom: 10px;
+    width: calc(100% - 20px);
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+}
+#urlInput {
+    width: 50%; /* Adjust this value to set the initial width of the input field */
+    max-width: 300px; /* Adjust this value to limit the maximum width of the input field */
+    padding: 10px;
+    margin-bottom: 20px;
+    font-size: 18px;
+}
+a {
+    text-decoration: underline;
+}
+code {
+    font-family: Courier New, monospace;
+    font-size: 14px;
+    background-color: lightgray;
+    padding: 2px;
+}
+pre {
+    font-family: Courier New, monospace;
+    font-size: 14px;
+    background-color: lightgray;
+    padding: 10px;
+    overflow-x: auto;
+}
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+th, td {
+    border: 1px solid black;
+    padding: 10px;
+    text-align: left;
+}
+img {
+    max-width: 100%;
+    height: auto;
+}
+.top-6 {
+    margin-top: 6%;
+}
+.teal-dark {
+    background-color: #235469;
+    color: white;
+    
+}
+.text-white {
+    color: white !important;
+}
+.logo-text {
+    /*color: #235469;*/
+    color: #FFFFFF;
+    background: #232323;
+    text-shadow: 0 0 50px #FFF, 0 0 5px teal, 0 0 15px #FFF, 0 0 20px #49ff18, 0 0 10px teal, 0 0 10px teal, 0 0 55px #490F18, 0 0 75px #49ff18;
+    color: #FFFFFF;
+}
